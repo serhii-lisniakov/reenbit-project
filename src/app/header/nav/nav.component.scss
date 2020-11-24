@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F9F9F9;
+  padding: 10px 40px;
+  a {
+    font-weight: 500;
+    position: relative;
+    font-size: 15px;
+    &:after {
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translateY(-50%) rotate(-135deg);
+      content: '';
+      width: 3px;
+      height: 3px;
+      border-top: 1.5px solid #6A983C;
+      border-left: 1.5px solid #6A983C;
+    }
+  }
+}
