@@ -1,0 +1,17 @@
+<div>
+  <h2>All products</h2>
+</div>
+<br>
+<div class="all-products_container">
+  <app-filters></app-filters>
+
+  <div class="all-products_items">
+    <div *ngFor="let product of products">
+
+      <a routerLink="/products/{{product.id}}" class="all-products_item">{{product.title}}: {{product.price}}</a>
+
+    </div>
+  </div>
+
+</div>
+

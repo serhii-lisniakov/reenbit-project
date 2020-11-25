@@ -1,0 +1,18 @@
+.product {
+  &_wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.proposals {
+  &_items {
+    display: flex;
+    justify-content: space-between;
+
+  }
+  &_item {
+    border: 1px solid;
+    width: 25%;
+    height: 100px;
+  }
+}
