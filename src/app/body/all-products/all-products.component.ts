@@ -1,15 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface Product {
-  id: number;
-  title: string;
-  price: string;
-}
-
-const mockProducts = [
-  {id: 1, title: 'ketchup', price: '$36'},
-  {id: 2, title: 'caviar', price: '$100'},
-];
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-all-products',
@@ -17,9 +8,10 @@ const mockProducts = [
   styleUrls: ['./all-products.component.scss']
 })
 export class AllProductsComponent implements OnInit {
-  products: Product[] = mockProducts;
-
-  constructor() { }
+  products: Observable<any[]>;
+  constructor(public db: AngularFireDatabase) {
+    this.products = db.list('products').valueChanges();
+  }
 
   ngOnInit(): void {
   }

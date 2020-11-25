@@ -6,7 +6,7 @@
   <app-filters></app-filters>
 
   <div class="all-products_items">
-    <div *ngFor="let product of products">
+    <div *ngFor="let product of products | async">
 
       <a routerLink="/products/{{product.id}}" class="all-products_item">{{product.title}}: {{product.price}}</a>
 
