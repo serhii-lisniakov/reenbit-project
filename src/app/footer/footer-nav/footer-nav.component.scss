@@ -1,0 +1,14 @@
+.footer-nav {
+  display: flex;
+  &_block-title {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  &_block-links {
+    display: flex;
+    flex-direction: column;
+    a {
+      color: inherit;
+    }
+  }
+}
