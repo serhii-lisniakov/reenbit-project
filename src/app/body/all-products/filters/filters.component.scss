@@ -1,7 +1,58 @@
 .filters {
   &_container {
-    border: 1px solid;
-    padding: 20px 30px;
-    margin-right: 20px;
+    margin-right: 35px;
+    min-width: 265px;
+  }
+}
+
+.filter {
+  &:first-child {
+    margin-top: 0;
+  }
+  margin-top: 40px;
+  font-size: 14px;
+  &_title {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  &_items {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.sort {
+  max-width: 180px;
+  height: 38px;
+  margin-bottom: 72px;
+  background: #F9F9F9;
+  border: 1px solid #D1D1D1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-size: 14px;
+  position: relative;
+  &:after {
+    position: absolute;
+    content: "";
+    height: 25px;
+    width: 1px;
+    background: #D1D1D1;
+    top: 50%;
+    left: 45%;
+    transform: translateY(-50%);
+  }
+  select {
+    font-size: 12px;
+    font-weight: bold;
+    border: none;
+    background: none;
+    max-width: 70px;
+    cursor: pointer;
+    option {
+      font-size: inherit;
+    }
   }
 }

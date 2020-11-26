@@ -12,8 +12,8 @@ export class AllProductsComponent implements OnInit {
   constructor(public db: AngularFireDatabase) {
     this.products = db.list('products').valueChanges();
   }
-
   ngOnInit(): void {
   }
-
 }
+
+

@@ -1,0 +1,23 @@
+.filter_category {
+  font-weight: normal;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  a {
+    display: block;
+  }
+  span {
+    background: #F4F8EC;
+    border-radius: 12px;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6A983C;
+    font-weight: 600;
+    font-size: 12px;
+    max-height: 18px;
+  }
+}

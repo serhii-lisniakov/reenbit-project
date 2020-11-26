@@ -1,0 +1,126 @@
+.product-card {
+  display: flex;
+  font-size: 14px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  border: 1px solid #D1D1D1;
+  &_content-wrapper {
+    display: flex;
+    padding: 32px;
+    flex-grow: 1;
+  }
+  &_content {
+    flex-grow: 1;
+    margin-right: 32px;
+  }
+  &_image {
+    min-width: 270px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    left: -1px;
+    background: url("/assets/mockImg.svg") center center no-repeat;
+    background-size: cover;
+  }
+  &_title {
+    font-weight: 600;
+    font-size: 18px;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+  &_description {
+    font-size: 12px;
+  }
+  &_rating {
+    margin-top: 10px;
+  }
+  &_info {
+    margin-top: 15px;
+    div {
+      display: flex;
+      margin-top: 12px;
+      & > span:first-child {
+        width: 100px;
+        margin-right: 32px;
+      }
+      span {
+        color: #A9A9A9;
+        &:first-letter {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+  &_pricing {
+    min-width: 160px;
+  }
+  &_price {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  &_lastprice {
+    font-weight: 600;
+    font-size: 12px;
+    color: #A9A9A9;
+    text-decoration: line-through;
+  }
+  &_shipping {
+    margin-top: 16px;
+    font-weight: 600;
+    font-size: 12px;
+    color: #A9A9A9;
+  }
+  &_delivery {
+    font-size: 12px;
+    color: #A9A9A9;
+  }
+  &_details {
+    display: flex;
+    a {
+      font-weight: bold;
+      font-size: 15px;
+      color: #FFFFFF;
+      background: #6A983C;
+      border: 2px solid #46760A;
+      padding: 10px 16px;
+      padding-right: 30px;
+      border-radius: 12px;
+      margin-top: 26px;
+      position: relative;
+      transition: .3s;
+      &:hover {
+        background: #46760A;
+      }
+      &:after {
+        position: absolute;
+        content: '>';
+        top: 50%;
+        transform: translateY(-50%);
+        right: 10px;
+      }
+    }
+  }
+  &_wishlist {
+    button {
+      margin-top: 12px;
+      background: #F5F5F5;
+      border-radius: 12px;
+      padding: 6px 12px;
+      font-weight: bold;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: .3s;
+      svg {
+        transition: .3s;
+      }
+      &:hover {
+        path {
+          transition: .3s;
+          fill: #151515;
+        }
+      }
+    }
+  }
+}

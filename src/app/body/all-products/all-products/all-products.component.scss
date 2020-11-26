@@ -2,9 +2,10 @@
   &_container {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
   }
   &_items {
-    border: 1px solid;
+    padding-top: 110px;
     flex-grow: 1;
   }
   &_item {
@@ -16,5 +17,28 @@
     &:hover {
       background: #6A983C;
     }
+  }
+}
+
+.products-counter {
+  font-weight: normal;
+  font-size: 12px;
+  color: #A9A9A9;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #F4F8EC;
+    border-radius: 12px;
+    padding: 2px 4px;
+    color: #6A983C;
+    font-weight: 600;
+    font-size: 12px;
+    max-height: 18px;
+    min-width: 32px;
+    margin-right: 10px;
   }
 }
