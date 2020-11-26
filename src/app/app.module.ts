@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
@@ -14,7 +14,6 @@ import { NavComponent } from './header/nav/nav.component';
 import { BreadCrumbsComponent } from './header/bread-crumbs/bread-crumbs.component';
 import { SearchComponent } from './header/search/search.component';
 import { HeaderProfileComponent } from './header/header-profile/header-profile.component';
-import { BodyComponent } from './body/body.component';
 import { AllProductsComponent } from './body/all-products/all-products.component';
 import { ProductComponent } from './body/product/product.component';
 import { FiltersComponent } from './body/filters/filters.component';
@@ -32,7 +31,6 @@ import { BasketComponent } from './body/basket/basket.component';
     BreadCrumbsComponent,
     SearchComponent,
     HeaderProfileComponent,
-    BodyComponent,
     AllProductsComponent,
     ProductComponent,
     FiltersComponent,
