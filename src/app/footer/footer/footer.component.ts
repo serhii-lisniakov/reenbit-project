@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
@@ -7,8 +6,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-
-  constructor(public location: Location) { }
+  constructor() {}
 
   ngOnInit(): void {
   }

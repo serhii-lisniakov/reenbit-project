@@ -6,7 +6,7 @@ import { NavComponent } from './nav/nav.component';
 import { BreadCrumbsComponent } from './bread-crumbs/bread-crumbs.component';
 import { SearchComponent } from './search/search.component';
 import { HeaderProfileComponent } from './header-profile/header-profile.component';
-import {RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 
 

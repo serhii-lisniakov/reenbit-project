@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./all-products.component.scss']
 })
 export class AllProductsComponent implements OnInit {
-  products: Observable<any[]>;
+  public products: Observable<any[]>;
   constructor(public db: AngularFireDatabase) {
     this.products = db.list('products').valueChanges();
   }

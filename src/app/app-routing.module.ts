@@ -20,6 +20,9 @@ const routes: Routes = [
   },
   {
     path: 'cart',
+    data: {
+      hideFooter: true
+    },
     loadChildren: () => import('./body/cart/cart.module').then(m => m.CartModule)
   },
 ];
