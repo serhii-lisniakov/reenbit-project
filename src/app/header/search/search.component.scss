@@ -1,0 +1,27 @@
+.search {
+  background: #F9F9F9;
+  border: 1px solid #D1D1D1;
+  border-radius: 12px;
+  padding: 0 16px;
+  font-size: 15px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  flex-grow: 2;
+  select, input {
+    border: none;
+    background: none;
+  }
+  select {
+    font-weight: bold;
+    cursor: pointer;
+  }
+  input {
+    padding-left: 30px;
+    margin-left: 10px;
+    border-left: 1px solid #D1D1D1;
+    font-size: 14px;
+    background: url("/assets/ic-actions-search.svg") 95% center no-repeat;
+    width: 100%;
+  }
+}

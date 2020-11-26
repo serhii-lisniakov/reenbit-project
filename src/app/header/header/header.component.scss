@@ -2,5 +2,11 @@
   &_content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
   }
+}
+app-search {
+  flex-grow: 1;
+  max-width: 500px;
 }

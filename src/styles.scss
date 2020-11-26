@@ -23,7 +23,14 @@
 }
 
 .container {
-  max-width: 1300px;
+  max-width: 1260px;
   padding: 0 45px;
   margin: 0 auto;
+}
+
+.page-title {
+  font-weight: 600;
+  font-size: 32px;
+  padding: 10px 0;
+  display: flex;
 }
