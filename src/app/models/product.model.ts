@@ -12,6 +12,7 @@ interface ProductReviewOrQuestion {
 
 export interface Product {
   id: number;
+  imgUrl?: string;
   rating: number;
   category: string;
   title: string;

@@ -20,6 +20,9 @@
       justify-content: space-between;
     }
   }
+  &_content {
+    flex-grow: 1;
+  }
   &_title {
     font-weight: 600;
     font-size: 32px;

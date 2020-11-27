@@ -6,7 +6,9 @@ import starBlack from 'src/assets/star-black.svg';
 // @ts-ignore
 import star from 'src/assets/star.svg';
 import {Observable} from 'rxjs';
-import {Product} from '../../all-products/product.model';
+import {Product} from '../../../models/product.model';
+import {ProductService} from '../../../services/product.service';
+import {log} from 'util';
 
 @Component({
   selector: 'app-product',
@@ -14,21 +16,26 @@ import {Product} from '../../all-products/product.model';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-  public product: Observable<Product>;
+  private id: number;
+  public product: Product;
   public starBlack: string;
   public star: string;
   constructor(
     private route: ActivatedRoute,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private productService: ProductService
   ) {
-    const id = route.snapshot.params.id;
-    db.database.ref(`products/${id}`).once('value').then(snapshot => {
-      this.product = snapshot.val();
-      this.starBlack = starBlack;
-      this.star = star;
-    });
+    this.id = route.snapshot.params.id;
+    this.starBlack = starBlack;
+    this.star = star;
   }
 
   ngOnInit(): void {
+    this.getProductById();
+  }
+  getProductById(): void {
+    const id = this.route.snapshot.params.id;
+    this.productService.getProductById(id)
+      .subscribe(promise => promise.then(product => this.product = product));
   }
 }

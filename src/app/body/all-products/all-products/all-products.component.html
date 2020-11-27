@@ -1,7 +1,7 @@
 <div class="page-title">
   <h2>All products</h2>
   <div class="products-counter">
-    <span>{{(products | async)?.length}} </span> Products
+    <span>{{(products)?.length}} </span> Products
   </div>
 </div>
 
@@ -9,7 +9,7 @@
   <app-filters></app-filters>
 
   <div class="all-products_items">
-    <div *ngFor="let product of products | async">
+    <div *ngFor="let product of products">
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
