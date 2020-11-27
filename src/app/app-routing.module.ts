@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {ProductsResolver} from './resolvers/products.resolver';
 
 const routes: Routes = [
   {
