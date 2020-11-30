@@ -117,9 +117,12 @@
   }
   &_button {
     button {
-      background: url("/assets/plus.svg") 10% center no-repeat, #6A983C;
+      img {
+        margin-right: 5px;
+      }
+      background: #6A983C;
       border: 2px solid #46760A;
-      padding: 12px 16px 12px 30px;
+      padding: 12px 16px;
       color: #FFFFFF;
       font-weight: bold;
       font-size: 15px;
@@ -129,7 +132,7 @@
       display: flex;
       align-items: center;
       &:hover {
-        background: url("/assets/plus.svg") 10% center no-repeat, #46760A;
+        background: #46760A;
       }
     }
   }
@@ -140,13 +143,12 @@
       font-size: 15px;
       border: none;
       cursor: pointer;
-      padding: 12px 15px 12px 40px;
+      padding: 12px 15px;
       transition: .3s;
-      background: url("/assets/heart.svg") 10% center no-repeat;
       border-radius: 12px;
+      background: transparent;
       &:hover {
-        background: url("/assets/heart-full.svg") 10% center no-repeat;
-        background-color: #F5F5F5;
+        background: #dbdbdb;
       }
     }
   }
