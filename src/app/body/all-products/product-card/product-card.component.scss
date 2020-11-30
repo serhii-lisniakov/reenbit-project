@@ -111,20 +111,15 @@
       margin-top: 12px;
       background: #F5F5F5;
       border-radius: 12px;
-      padding: 6px 12px;
+      padding: 6px 12px 6px 25px;
       font-weight: bold;
       font-size: 15px;
       border: none;
       cursor: pointer;
       transition: .3s;
-      svg {
-        transition: .3s;
-      }
+      background: url("/assets/heart.svg") 2% center no-repeat;
       &:hover {
-        path {
-          transition: .3s;
-          fill: #151515;
-        }
+        background: url("/assets/heart-full.svg") 2% center no-repeat;
       }
     }
   }

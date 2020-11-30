@@ -1,12 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-// @ts-ignore
-import mockImg from 'src/assets/mockImg.svg';
-// @ts-ignore
-import starBlack from 'src/assets/star-black.svg';
-// @ts-ignore
-import star from 'src/assets/star.svg';
-// @ts-ignore
-import heart from 'src/assets/heart.svg';
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-product-card',
@@ -14,18 +7,16 @@ import heart from 'src/assets/heart.svg';
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product;
-  public mockImg: string;
-  public starBlack: string;
-  public star: string;
-  public heart: string;
+  @Input() product: Product;
+  public productRating: string[];
   constructor() { }
 
   ngOnInit(): void {
-    this.mockImg = mockImg;
-    this.starBlack = starBlack;
-    this.star = star;
-    this.heart = heart;
+    this.productRating = this.setProductsRating(this.product.rating);
+  }
+
+  private setProductsRating(rating: number): string[] {
+    return Array(5).fill('star').map((item, i) => i < rating ? 'star-black' : 'star');
   }
 
 }

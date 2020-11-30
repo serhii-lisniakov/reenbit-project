@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AllProductsRoutingModule } from './all-products-routing.module';
-import { AllProductsComponent } from './all-products/all-products.component';
+import { AllProductsComponent } from './all-products.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { CategoryFilterComponent } from './filters/category-filter/category-filter.component';

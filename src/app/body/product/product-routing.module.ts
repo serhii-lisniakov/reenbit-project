@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductComponent } from './product/product.component';
+import { ProductComponent } from './product.component';
+import { ProductResolver } from '../../resolvers/product.resolver';
 
 const routes: Routes = [
-  {path: '', component: ProductComponent}
+  {path: '', component: ProductComponent, resolve: { data: ProductResolver } }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    ProductResolver
+  ]
 })
 export class ProductRoutingModule { }

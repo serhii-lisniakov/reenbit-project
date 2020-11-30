@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AllProductsComponent } from './all-products/all-products.component';
-import {ProductsResolver} from '../../resolvers/products.resolver';
+import { AllProductsComponent } from './all-products.component';
+import { ProductsResolver } from '../../resolvers/products.resolver';
 
 const routes: Routes = [
-  { path: '', component: AllProductsComponent, resolve: { data: ProductsResolver }}
+  { path: '', component: AllProductsComponent, resolve: { data: ProductsResolver } }
 ];
 
 @NgModule({

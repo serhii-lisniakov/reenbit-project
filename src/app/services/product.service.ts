@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +7,11 @@ import { Observable, of } from 'rxjs';
 export class ProductService {
   constructor(private db: AngularFireDatabase) { }
 
-  getProducts(): Observable<any[]> {
-    return this.db.list('products').valueChanges();
+  getProducts(): Promise<any> {
+    return this.db.database.ref(`products`).once('value').then(snapshot => snapshot.val());
   }
 
-  getProductById(id: number): Observable<Promise<any>> {
-    return of(this.db.database.ref(`products/${id}`).once('value').then(snapshot => snapshot.val()));
+  getProductById(id: number): Promise<any> {
+    return this.db.database.ref(`products/${id}`).once('value').then(snapshot => snapshot.val());
   }
 }
