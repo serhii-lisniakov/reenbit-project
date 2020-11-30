@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-all-products',
@@ -10,10 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 export class AllProductsComponent implements OnInit {
   public products: Product[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.route.snapshot.data.data.then(data => this.products = data);
+    this.products = this.productService.products;
   }
 }
 

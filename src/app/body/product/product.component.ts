@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product.model';
+import {ProductService} from '../../services/product.service';
 
 @Component({
   selector: 'app-product',
@@ -11,13 +12,11 @@ export class ProductComponent implements OnInit {
   public product: Product;
   public productRating: string[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.route.snapshot.data.data.then(product => {
-      this.product = product;
-      this.productRating = this.setProductsRating(this.product.rating);
-    });
+    this.product = this.productService.product;
+    this.productRating = this.setProductsRating(this.product.rating);
   }
 
   private setProductsRating(rating: number): string[] {

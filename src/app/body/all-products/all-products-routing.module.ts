@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AllProductsComponent } from './all-products.component';
-import { ProductsResolver } from '../../resolvers/products.resolver';
+import { ProductsResolver } from './products.resolver';
 
 const routes: Routes = [
   { path: '', component: AllProductsComponent, resolve: { data: ProductsResolver } }
