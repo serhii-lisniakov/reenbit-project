@@ -3,6 +3,7 @@ import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product',
@@ -10,22 +11,27 @@ import { Subject } from 'rxjs';
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<undefined>();
+  private destroy$ = new Subject();
   public product: Product;
   public productRating: string[];
   public proposals: Product[];
 
   constructor(private productService: ProductService,
-              private route: ActivatedRoute) {
-    this.route.params.pipe().subscribe((params: Params) => {
-      this.product = this.productService.product;
-    });
-  }
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.subscribeToRouteChanges();
     this.product = this.productService.product;
     this.productRating = this.setProductsRating(this.product.rating);
     this.proposals = this.getRandomProposals();
+  }
+
+  private subscribeToRouteChanges(): void {
+    this.route.params.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe((params: Params) => {
+      this.product = this.productService.product;
+    });
   }
 
   private setProductsRating(rating: number): string[] {

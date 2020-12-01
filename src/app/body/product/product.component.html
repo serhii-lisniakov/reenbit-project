@@ -4,8 +4,8 @@
       <img [src]="product.imgUrl" alt="">
     </div>
     <div class="product_photos-bottom">
-      <div><img [src]="product.imgUrl" alt=""></div>
-      <div><img [src]="product.imgUrl" alt=""></div>
+      <div class="product_photos-bottom_item"><img [src]="product.imgUrl" alt=""></div>
+      <div class="product_photos-bottom_item"><img [src]="product.imgUrl" alt=""></div>
     </div>
   </div>
 
@@ -101,7 +101,7 @@
             *ngFor="let review of product.reviews"
           >
             <span>{{review.author}}</span><span>{{review.date.substr(0, 24)}}</span>
-            <div>{{review.body}}</div>
+            <div class="product-tabs_review-body">{{review.body}}</div>
           </div>
         </app-tab>
 
@@ -112,7 +112,7 @@
           >
             <span>{{question.author}}</span>
             <span>{{question.date.substr(0, 24)}}</span>
-            <div>{{question.body}}</div>
+            <div class="product-tabs_review-body">{{question.body}}</div>
           </div>
         </app-tab>
       </app-tabs>
