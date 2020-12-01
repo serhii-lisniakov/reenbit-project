@@ -1,11 +1,11 @@
-<div class="product_wrapper" *ngIf="product">
+<div class="product_wrapper" *ngIf="product; else noProduct">
   <div class="product_photos">
     <div class="product_photos-top">
-      <img src="assets/imageProdMain.jpg" alt="">
+      <img [src]="product.imgUrl" alt="">
     </div>
     <div class="product_photos-bottom">
-      <div><img src="assets/imageProdMain.jpg" alt=""></div>
-      <div><img src="assets/imageProdMain.jpg" alt=""></div>
+      <div><img [src]="product.imgUrl" alt=""></div>
+      <div><img [src]="product.imgUrl" alt=""></div>
     </div>
   </div>
 
@@ -121,7 +121,11 @@
 
 </div>
 
-<div class="proposals">
+<ng-template #noProduct>
+  <p class="product_empty">No Product to show! Go back <a routerLink="/products">here</a></p>
+</ng-template>
+
+<div class="proposals" *ngIf="product">
   <div class="proposals_header">
     <span>You will maybe love</span>
     <a routerLink="/products">More products</a>
