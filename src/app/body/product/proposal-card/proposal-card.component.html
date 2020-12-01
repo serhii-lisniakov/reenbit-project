@@ -1,0 +1,11 @@
+<div class="proposal">
+  <div class="proposal_image">
+    <img src="{{proposal.imgUrl}}" alt="">
+  </div>
+  <div class="proposal_title">{{proposal.title.charAt(0).toUpperCase() + proposal.title.slice(1)}}</div>
+  <div class="proposal_description">{{proposal.description.small}}</div>
+  <div class="proposal_footer">
+    <span>{{proposal.price}} USD</span>
+    <a routerLink="/products/{{proposal.id}}">Buy now</a>
+  </div>
+</div>

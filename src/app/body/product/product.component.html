@@ -122,10 +122,14 @@
 </div>
 
 <div class="proposals">
-  You will maybe love
+  <div class="proposals_header">
+    <span>You will maybe love</span>
+    <a routerLink="/products">More products</a>
+  </div>
+
   <div class="proposals_items">
-    <div class="proposals_item">
-      product
+    <div *ngFor="let proposal of proposals" class="proposals_item">
+      <app-proposal-card [proposal]="proposal"></app-proposal-card>
     </div>
   </div>
 </div>

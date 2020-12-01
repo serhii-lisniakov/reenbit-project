@@ -186,14 +186,34 @@
 }
 
 .proposals {
+  margin-top: 70px;
+  &_header {
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    a {
+      font-weight: bold;
+      font-size: 15px;
+      position: relative;
+      margin-left: auto;
+      padding-right: 20px;
+      &:after {
+        position: absolute;
+        content: ">";
+        color: #6A983C;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
   &_items {
     display: flex;
     justify-content: space-between;
-
+    margin-top: 40px;
+    margin-bottom: 110px;
   }
   &_item {
-    border: 1px solid;
-    width: 25%;
-    height: 100px;
+    width: calc(25% - 32px);
   }
 }

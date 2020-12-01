@@ -25,6 +25,10 @@ export class ProductService {
         this.product = snapshot.val();
         resolve();
       });
+      this.db.database.ref(`products`).once('value').then(snapshot => {
+        this.products = snapshot.val();
+        resolve();
+      });
     });
   }
 }
