@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-all-products',
@@ -8,12 +8,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./all-products.component.scss']
 })
 export class AllProductsComponent implements OnInit {
-  public products: Observable<any[]>;
-  constructor(public db: AngularFireDatabase) {
-    this.products = db.list('products').valueChanges();
-  }
+  public products: Product[];
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
+    this.products = this.productService.products;
   }
-
 }
+
+

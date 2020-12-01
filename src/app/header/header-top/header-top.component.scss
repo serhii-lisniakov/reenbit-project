@@ -2,7 +2,12 @@
   font-size: 12px;
   display: flex;
   justify-content: space-between;
+  padding: 17px 0;
   a {
     color: #6A983C;
+    margin-right: 35px;
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

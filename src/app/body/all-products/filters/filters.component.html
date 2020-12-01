@@ -1,6 +1,43 @@
 <div class="filters_container">
-  <div class="filter">Filter</div>
-  <div class="filter">Filter</div>
-  <div class="filter">Filter</div>
-  <div class="filter">Filter</div>
+  <div class="sort">
+    <span class="openSans">Sort by</span>
+    <select name="Select">
+        <option selected disabled hidden>Select</option>
+        <option>Price</option>
+        <option>Freshness</option>
+    </select>
+  </div>
+
+  <div class="filter">
+    <div class="filter_title">Categories</div>
+    <ul class="filter_items">
+      <app-category-filter></app-category-filter>
+      <app-category-filter></app-category-filter>
+      <app-category-filter></app-category-filter>
+      <app-category-filter></app-category-filter>
+    </ul>
+  </div>
+
+  <div class="filter">
+    <div class="filter_title">Brands</div>
+    <ul class="filter_items">
+      <app-brand-filter></app-brand-filter>
+      <app-brand-filter></app-brand-filter>
+      <app-brand-filter></app-brand-filter>
+      <app-brand-filter></app-brand-filter>
+      <app-brand-filter></app-brand-filter>
+    </ul>
+  </div>
+
+  <div class="filter">
+    <div class="filter_title">Rating</div>
+    <ul class="filter_items">
+      <app-rating-filter></app-rating-filter>
+    </ul>
+  </div>
+
+  <div class="filter">
+    <div class="filter_title">Price</div>
+    <app-price-filter></app-price-filter>
+  </div>
 </div>

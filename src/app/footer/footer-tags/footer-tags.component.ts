@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-const mockTags = ['Beans', 'Carrots', 'Apples'];
+const mockTags = ['Beans', 'Carrots', 'Apples', 'Garlic', 'Mushrooms', 'Tomatoes', 'Chilli peppers'];
 
 @Component({
   selector: 'app-footer-tags',

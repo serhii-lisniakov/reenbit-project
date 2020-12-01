@@ -1,0 +1,95 @@
+<div class="product_wrapper" *ngIf="product">
+  <div class="product_photos">
+    <div class="product_photos-top">
+      <img src="assets/imageProdMain.jpg" alt="">
+    </div>
+    <div class="product_photos-bottom">
+      <div><img src="assets/imageProdMain.jpg" alt=""></div>
+      <div><img src="assets/imageProdMain.jpg" alt=""></div>
+    </div>
+  </div>
+
+  <div class="product_content">
+    <div class="product_title">{{product.title.charAt(0).toUpperCase() + product.title.slice(1)}}</div>
+    <div class="product_rating">
+      <img *ngFor="let star of productRating" [src]="'assets/' + star + '.svg'" alt="star">
+      <span class="openSans">({{product.reviews.length}} customer review{{product.reviews.length > 1 ? 's' : ''}})</span>
+    </div>
+    <div class="product_description openSans">{{product.description.main}}</div>
+    <div class="product_info openSans">
+      <div class="product_info-part">
+        <div>
+          <span>Country:</span>
+          <span>{{product.country}}</span>
+        </div>
+        <div>
+          <span>Category:</span>
+          <span>{{product.category.charAt(0).toUpperCase() + product.category.slice(1)}}</span>
+        </div>
+        <div>
+          <span>Stock:</span>
+          <span>{{product.stock >= 10 ? 'In Stock' : product.stock === 0 ? 'Ran out' : 'Less than 10 items'}}</span>
+        </div>
+        <div>
+          <span>Color:</span>
+          <span>{{product.color}}</span>
+        </div>
+      </div>
+      <div class="product_info-part">
+        <div>
+          <span>Size:</span>
+          <span>{{product.sizes}}</span>
+        </div>
+        <div>
+          <span>Buy by:</span>
+          <span>{{product.buyProperties}}</span>
+        </div>
+        <div>
+          <span>Delivery:</span>
+          <span>in {{product.deliveryTime}} day{{product.deliveryTime > 1 ? 's' : ''}}</span>
+        </div>
+        <div>
+          <span>Delivery area:</span>
+          <span>{{product.deliveryArea.charAt(0).toUpperCase() + product.deliveryArea.slice(1)}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product_pricing">
+      <div class="product_price">
+        <div>{{product.price}} USD</div>
+        <div>{{product.previousPrice}} USD</div>
+      </div>
+
+      <div class="product_county">
+        <input type="number" value="1" />
+        <select>
+          <option selected>Pcs</option>
+          <option value="">Box</option>
+        </select>
+      </div>
+
+      <div class="product_button">
+        <button>
+          <img src="assets/plus.svg" alt="">
+          Add to cart</button>
+      </div>
+    </div>
+
+    <div class="product_wishlist">
+      <button>
+        <img src="assets/heart.svg" alt="">
+        Add to my wish list</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="proposals">
+  You will maybe love
+  <div class="proposals_items">
+    <div class="proposals_item">
+      product
+    </div>
+  </div>
+</div>

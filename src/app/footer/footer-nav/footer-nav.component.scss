@@ -1,5 +1,6 @@
 .footer-nav {
   display: flex;
+  justify-content: space-between;
   &_block-title {
     font-weight: 600;
     font-size: 18px;
@@ -9,6 +10,7 @@
     flex-direction: column;
     a {
       color: inherit;
+      margin-top: 16px;
     }
   }
 }

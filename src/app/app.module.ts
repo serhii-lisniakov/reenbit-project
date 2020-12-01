@@ -23,7 +23,6 @@ import { FooterModule } from './footer/footer.module';
     HeaderModule,
     FooterModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

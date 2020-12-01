@@ -1,0 +1,49 @@
+<div class="product-card">
+  <div class="product-card_image">
+    <img src="{{product.imgUrl}}" alt="{{product.category}}">
+  </div>
+
+  <div class="product-card_content-wrapper">
+    <div class="product-card_content">
+      <div class="product-card_title">{{product.title}}</div>
+      <div class="product-card_description openSans">{{product.description.small}}</div>
+      <div class="product-card_rating">
+        <img *ngFor="let star of productRating" [src]="'assets/' + star + '.svg'" alt="star">
+      </div>
+      <div class="product-card_info openSans">
+        <div>
+          <span>Freshness</span>
+          <span><span class="green">{{product.freshness}}</span></span>
+        </div>
+        <div>
+          <span>Farm</span>
+          <span>{{product.farm}}</span>
+        </div>
+        <div>
+          <span>Delivery</span>
+          <span>{{product.deliveryArea}}</span>
+        </div>
+        <div>
+          <span>Stock</span>
+          <span class="green">{{product.stock}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card_pricing">
+      <div class="product-card_price">{{product.price}} USD</div>
+      <div class="product-card_lastprice">{{product.previousPrice}}</div>
+      <div class="product-card_shipping">Free Shipping</div>
+      <div class="product-card_delivery openSans">Delivery in {{product.deliveryTime}} day</div>
+      <div class="product-card_details">
+        <a routerLink="/products/{{product.id}}">Product Detail</a>
+      </div>
+      <div class="product-card_wishlist">
+        <button>
+          <img src="assets/heart.svg" alt="">
+          Add to wish list</button>
+      </div>
+    </div>
+  </div>
+
+</div>
