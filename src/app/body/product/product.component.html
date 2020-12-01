@@ -81,6 +81,42 @@
         <img src="assets/heart.svg" alt="">
         Add to my wish list</button>
     </div>
+
+    <div class="product-tabs">
+      <app-tabs>
+        <app-tab [title]="'Description'">
+          <div class="product-tabs_description">
+            <span>Origins</span>
+            <div>{{product.description.origins}}</div>
+          </div>
+          <div class="product-tabs_description">
+            <span>How to cook</span>
+            <div>{{product.description.howToCook}}</div>
+          </div>
+        </app-tab>
+
+        <app-tab [title]="'Reviews'" [count]="product.reviews.length">
+          <div
+            class="product-tabs_review"
+            *ngFor="let review of product.reviews"
+          >
+            <span>{{review.author}}</span><span>{{review.date.substr(0, 24)}}</span>
+            <div>{{review.body}}</div>
+          </div>
+        </app-tab>
+
+        <app-tab [title]="'Questions'" [count]="product.reviews.length">
+          <div
+            class="product-tabs_review"
+            *ngFor="let question of product.questions"
+          >
+            <span>{{question.author}}</span>
+            <span>{{question.date.substr(0, 24)}}</span>
+            <div>{{question.body}}</div>
+          </div>
+        </app-tab>
+      </app-tabs>
+    </div>
   </div>
 
 </div>
