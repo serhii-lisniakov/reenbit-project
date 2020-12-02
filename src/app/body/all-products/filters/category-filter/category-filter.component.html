@@ -1,1 +1,5 @@
-<a href="#" class="filter_category">Category name<span>320</span></a>
+<a
+  href="#" class="filter_category"
+  *ngFor="let category of categories"
+  (click)="filter($event , category)"
+>{{category.charAt(0).toUpperCase() + category.slice(1)}}<span>{{getCategoryCount(category)}}</span></a>

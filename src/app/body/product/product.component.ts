@@ -12,6 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ProductComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
+  private products: Product[];
   public product: Product;
   public productRating: string[];
   public proposals: Product[];
@@ -22,6 +23,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscribeToRouteChanges();
     this.product = this.productService.product;
+    this.products = this.productService.originProducts;
     this.productRating = this.setProductsRating(this.product.rating);
     this.proposals = this.getRandomProposals();
   }
@@ -44,7 +46,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
     const randomProposals = [];
     for (let i = 0; i < 4; i++) {
-      randomProposals.push(this.productService.products[getRandomNumber(0, this.productService.products.length)]);
+      randomProposals.push(this.products[getRandomNumber(0, this.products.length)]);
     }
     return randomProposals;
   }
