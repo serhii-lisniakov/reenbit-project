@@ -50,4 +50,14 @@ export class ProductService {
       this.products.next(this.originProducts);
     }
   }
+
+  filterByRating(ratings: string[]): void {
+    if (ratings.length) {
+      this.products.next(this.originProducts);
+      const val = this.products.getValue().filter(product => ratings.includes(product.rating.toString()));
+      this.products.next(val);
+    } else {
+      this.products.next(this.originProducts);
+    }
+  }
 }

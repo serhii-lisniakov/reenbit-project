@@ -17,7 +17,6 @@ export class BrandFilterComponent implements OnInit {
   ngOnInit(): void {
     this.products = this.productService.products.getValue();
     this.brands = this.getBrandsFromProducts();
-    console.log(this.element.nativeElement.children);
   }
 
   private getBrandsFromProducts(): string[] {
