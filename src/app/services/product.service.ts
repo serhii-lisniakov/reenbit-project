@@ -40,4 +40,14 @@ export class ProductService {
     const val = this.products.getValue().filter(product => product.category.toLowerCase() === category);
     this.products.next(val);
   }
+
+  filterByBrand(brands: string[]): void {
+    if (brands.length) {
+      this.products.next(this.originProducts);
+      const val = this.products.getValue().filter(product => brands.includes(product.farm.replace(/\s/g, '').toLowerCase()));
+      this.products.next(val);
+    } else {
+      this.products.next(this.originProducts);
+    }
+  }
 }
