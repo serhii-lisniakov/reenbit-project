@@ -9,6 +9,7 @@ import { CategoryFilterComponent } from './filters/category-filter/category-filt
 import { BrandFilterComponent } from './filters/brand-filter/brand-filter.component';
 import { RatingFilterComponent } from './filters/rating-filter/rating-filter.component';
 import { PriceFilterComponent } from './filters/price-filter/price-filter.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PriceFilterComponent } from './filters/price-filter/price-filter.compon
   ],
   imports: [
     CommonModule,
-    AllProductsRoutingModule
+    AllProductsRoutingModule,
+    NgxPaginationModule
   ]
 })
 export class AllProductsModule { }

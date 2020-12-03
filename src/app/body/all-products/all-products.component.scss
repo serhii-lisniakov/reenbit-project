@@ -18,6 +18,78 @@
       background: #6A983C;
     }
   }
+  &_pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    .products-counter {
+      margin-left: 0;
+    }
+  }
+  &_pagination-controls {
+    display: flex;
+    align-items: center;
+    ::ng-deep.ngx-pagination {
+      margin-bottom: 0;
+      font-size: 12px;
+      .pagination-previous,
+      .pagination-previous span,
+      .pagination-next,
+      .pagination-next span {
+        padding: 0 5px;
+      }
+      .pagination-previous::before,
+      .pagination-previous a::before,
+      .pagination-next::after,
+      .pagination-next a::after {
+        display: none;
+      }
+      a {
+        padding: 0 5px;
+        &:hover {
+          color: #6A983C;
+          background: transparent;
+          span {
+            color: #6A983C;
+          }
+        }
+      }
+      .disabled span {
+        color: #D1D1D1;
+      }
+      .current {
+        padding: 0 5px;
+        margin: 0;
+        background: none;
+        span {
+          color: #6A983C;
+        }
+      }
+    }
+  }
+  &_showmore {
+    button {
+      padding: 12px 30px 12px 16px;
+      background: #6A983C;
+      border: 2px solid #46760A;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 15px;
+      color: #FFFFFF;
+      position: relative;
+      cursor: pointer;
+      transition: .3s;
+      &:after {
+        position: absolute;
+        content: ">";
+        transform: rotate(90deg);
+        margin-left: 10px;
+      }
+      &:hover {
+        background: #46760A;
+      }
+    }
+  }
 }
 
 .products-counter {

@@ -9,10 +9,33 @@
   <app-filters></app-filters>
 
   <div class="all-products_items">
-    <div *ngFor="let product of products">
+    <div *ngFor="let product of products | paginate: {
+      id: 'products_pagination',
+      itemsPerPage: productsToShow,
+      currentPage: page,
+      totalItems: products.length
+    }">
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
 
+</div>
+
+<div class="all-products_pagination">
+  <pagination-controls
+    class="all-products_pagination-controls"
+    id="products_pagination"
+    maxSize="5"
+    (pageChange)="page = $event"
+    autoHide="true"
+  ></pagination-controls>
+
+  <div class="all-products_showmore" *ngIf="products.length > 5">
+    <button (click)="showMoreProducts()">Show more products </button>
+  </div>
+
+  <div class="products-counter">
+    <span>{{(products)?.length}} </span> Products
+  </div>
 </div>
 

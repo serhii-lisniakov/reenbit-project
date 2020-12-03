@@ -10,6 +10,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class AllProductsComponent implements OnInit {
   public products: Product[];
+  public page: number;
+  public productsToShow = 5;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { }
@@ -17,6 +19,11 @@ export class AllProductsComponent implements OnInit {
   ngOnInit(): void {
     this.products = this.route.snapshot.data.data;
   }
+
+  showMoreProducts(): void {
+    this.productsToShow += 5;
+  }
+
 }
 
 
