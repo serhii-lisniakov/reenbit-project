@@ -1,0 +1,33 @@
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  border-bottom: 1px solid #F5F5F5;
+  li {
+    padding-bottom: 16px;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    width: 33%;
+    &:nth-child(2) {
+      text-align: center;
+    }
+    &:nth-child(3) {
+      text-align: right;
+    }
+    span {
+      padding: 0px 8px;
+      background: #F4F8EC;
+      border-radius: 12px;
+      color: #6A983C;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      margin-left: 8px;
+      display: inline-block;
+    }
+  }
+  .active {
+    border-bottom: 2px solid #151515;
+  }
+}

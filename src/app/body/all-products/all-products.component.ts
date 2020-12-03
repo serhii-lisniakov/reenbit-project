@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-all-products',
@@ -9,12 +10,20 @@ import { ProductService } from '../../services/product.service';
 })
 export class AllProductsComponent implements OnInit {
   public products: Product[];
+  public page: number;
+  public productsToShow = 5;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.products = this.productService.products;
+    this.products = this.route.snapshot.data.data;
   }
+
+  showMoreProducts(): void {
+    this.productsToShow += 5;
+  }
+
 }
 
 
