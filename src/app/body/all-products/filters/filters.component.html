@@ -1,10 +1,12 @@
 <div class="filters_container">
   <div class="sort">
     <span class="openSans">Sort by</span>
-    <select name="Select">
+    <select [(ngModel)]="selectedValue" (change)="sort(selectedValue)">
         <option selected disabled hidden>Select</option>
-        <option>Price</option>
-        <option>Freshness</option>
+        <option
+          *ngFor="let o of options"
+          [ngValue]="o"
+        >{{o.label}}</option>
     </select>
   </div>
 

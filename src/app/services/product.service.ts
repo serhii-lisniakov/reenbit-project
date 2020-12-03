@@ -64,4 +64,13 @@ export class ProductService {
       this.products.next(this.originProducts);
     }
   }
+
+  sorting(condition): void {
+    const val = this.products.getValue().sort((a, b) => {
+      return eval(`${condition.operator === '-' ? 'a.' : 'b.'}${condition.value}
+                      -
+                      ${condition.operator === '+' ? 'a.' : 'b.'}${condition.value}`);
+    });
+    this.products.next(val);
+  }
 }
