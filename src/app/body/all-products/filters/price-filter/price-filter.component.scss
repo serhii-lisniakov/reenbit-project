@@ -1,8 +1,5 @@
 .filter-price {
   margin-top: 15px;
-  input[type='range'] {
-    width: 100%;
-  }
   &_inputs {
     display: flex;
     align-items: center;
@@ -25,13 +22,61 @@
       border-radius: 12px;
       padding: 10px 15px;
       max-width: 110px;
+      text-align: center;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
     }
   }
-  button {
-    cursor: pointer;
-    display: block;
-    border: none;
-    background: none;
-    margin: 20px auto 0;
+  &_range {
+    display: flex;
+    align-items: flex-end;
+    button {
+      background: none;
+      border: 2px solid #6A983C;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      padding: 0 4px;
+      margin-left: 10px;
+      position: relative;
+      top: -4px;
+      cursor: pointer;
+      transition: .3s;
+      &:hover {
+        color: #fff;
+        background: #6A983C;
+      }
+    }
+  }
+  ::ng-deep.ngx-slider {
+    .ngx-slider-bar {
+      background: #EBEBEB !important;
+      height: 6px !important;
+    }
+    .ngx-slider-selection {
+      background: #6A983C !important;
+      height: 6px !important;
+    }
+    .ngx-slider-bubble {
+      font-size: 14px !important;
+      &.ngx-slider-limit {
+        font-size: 10px !important;
+      }
+      &.ngx-slider-model-value, &.ngx-slider-model-high {
+        display: none;
+      }
+    }
+    .ngx-slider-pointer {
+      background: #FFFFFF !important;
+      border: 1px solid #D1D1D1 !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+      width: 20px !important;
+      height: 20px !important;
+      top: -7px !important;
+      &::after {
+        display: none;
+      }
+    }
   }
 }

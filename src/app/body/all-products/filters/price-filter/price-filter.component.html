@@ -1,15 +1,20 @@
 <div class="filter-price">
-  <input type="range" />
+  <div class="filter-price_range">
+    <ngx-slider
+      [(value)]="minValue"
+      [(highValue)]="maxValue"
+      [options]="options"
+    ></ngx-slider>
+    <button (click)="filter()">OK</button>
+  </div>
+
   <div class="filter-price_inputs">
-    <label>
-      Min
-      <input type="text" placeholder="0">
+    <label>Min
+      <input type="number" placeholder="0" [(ngModel)]="minValue">
     </label>
     <span>-</span>
-    <label>
-      Max
-      <input type="text" placeholder="000">
+    <label>Max
+      <input type="number" placeholder="000" [(ngModel)]="maxValue">
     </label>
   </div>
-  <button>Reset</button>
 </div>

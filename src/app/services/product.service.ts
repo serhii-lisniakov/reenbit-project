@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ProductService {
-  public originProducts: Product[];
+  private originProducts: Product[];
   public products = new BehaviorSubject([]);
   constructor(private db: AngularFireDatabase) { }
 
@@ -49,6 +49,16 @@ export class ProductService {
     if (ratings.length) {
       this.products.next(this.originProducts);
       const val = this.products.getValue().filter(product => ratings.includes(product.rating.toString()));
+      this.products.next(val);
+    } else {
+      this.products.next(this.originProducts);
+    }
+  }
+
+  filterByPrice(range: number[]): void {
+    if (range.length) {
+      this.products.next(this.originProducts);
+      const val = this.products.getValue().filter(product => product.price >= range[0] && product.price <= range[1]);
       this.products.next(val);
     } else {
       this.products.next(this.originProducts);
