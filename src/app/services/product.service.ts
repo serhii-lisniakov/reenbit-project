@@ -9,28 +9,22 @@ import { BehaviorSubject } from 'rxjs';
 export class ProductService {
   public originProducts: Product[];
   public products = new BehaviorSubject([]);
-  public product: Product;
   constructor(private db: AngularFireDatabase) { }
 
   getProducts(): Promise<any[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.db.database.ref(`products`).once('value').then(snapshot => {
         this.originProducts = snapshot.val();
         this.products.next(snapshot.val());
-        resolve();
+        resolve(snapshot.val());
       });
     });
   }
 
   getProductById(id: number): Promise<any> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       this.db.database.ref(`products/${id}`).once('value').then(snapshot => {
-        this.product = snapshot.val();
-        resolve();
-      });
-      this.db.database.ref(`products`).once('value').then(snapshot => {
-        this.originProducts = snapshot.val();
-        resolve();
+        resolve(snapshot.val());
       });
     });
   }

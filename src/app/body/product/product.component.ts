@@ -1,59 +1,51 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
-export class ProductComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject();
-  private products: Product[];
+export class ProductComponent implements OnInit {
   public product: Product;
   public productRating: string[];
   public proposals: Product[];
 
   constructor(private productService: ProductService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.getProduct();
     this.subscribeToRouteChanges();
-    this.product = this.productService.product;
-    this.products = this.productService.originProducts;
-    this.productRating = this.setProductsRating(this.product.rating);
-    this.proposals = this.getRandomProposals();
   }
 
   private subscribeToRouteChanges(): void {
-    this.route.params.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe((params: Params) => {
-      this.product = this.productService.product;
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.getProduct();
+      }
     });
+  }
+
+  private getProduct(): void {
+    const [product, products] = this.route.snapshot.data.data;
+    this.product = product;
+    this.productRating = this.setProductsRating(this.product.rating);
+    this.proposals = this.getRandomProposals(products);
   }
 
   private setProductsRating(rating: number): string[] {
     return Array(5).fill('star').map((item, i) => i < rating ? 'star-black' : 'star');
   }
 
-  private getRandomProposals(): Product[] {
-    function getRandomNumber(min, max): number {
-      return Math.floor(Math.random() * (max - min) + min);
-    }
+  private getRandomProposals(products: Product[]): Product[] {
     const randomProposals = [];
     for (let i = 0; i < 4; i++) {
-      randomProposals.push(this.products[getRandomNumber(0, this.products.length)]);
+      randomProposals.push(products[Math.floor(Math.random() * products.length)]);
     }
     return randomProposals;
   }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
 }
