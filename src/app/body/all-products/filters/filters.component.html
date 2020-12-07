@@ -1,38 +1,80 @@
 <div class="filters_container">
   <div class="sort">
     <span class="openSans">Sort by</span>
-    <select [(ngModel)]="selectedValue" (change)="sort(selectedValue)">
-        <option selected disabled hidden>Select</option>
-        <option
-          *ngFor="let o of options"
-          [ngValue]="o"
-        >{{o.label}}</option>
-    </select>
+    <label>
+      <select [(ngModel)]="selectedValue" (change)="sort(selectedValue)">
+          <option selected disabled hidden>Select</option>
+          <option
+            *ngFor="let o of sortOptions"
+            [ngValue]="o"
+          >{{o.label}}</option>
+      </select>
+    </label>
   </div>
 
-  <div class="filter">
-    <div class="filter_title">Categories</div>
-    <ul class="filter_items">
-      <app-category-filter></app-category-filter>
-    </ul>
-  </div>
+  <form id="form" novalidate [formGroup]="form" (change)="filter()" (submit)="reset()">
+    <div class="filter">
+      <div class="filter_title">Categories</div>
+      <ul class="filter_items">
+        <li *ngFor="let category of categories">
+          <label class="filter_category">
+            <input type="radio" value="{{category}}" name="categories" formControlName="categories" />
+            <span>{{category.charAt(0).toUpperCase() + category.slice(1)}}</span>
+            <span>{{getCategoryAmount(category)}}</span>
+          </label>
+        </li>
+      </ul>
+    </div>
 
-  <div class="filter">
-    <div class="filter_title">Brands</div>
-    <ul class="filter_items">
-      <app-brand-filter></app-brand-filter>
-    </ul>
-  </div>
+    <div class="filter">
+      <div class="filter_title">Brands</div>
+      <ul class="filter_items">
+        <li *ngFor="let brand of brands">
+          <label class="filter_brand">
+            <input type="checkbox" value="{{brand}}" (change)="onBrandsCheckboxChange($event)"/>
+            {{brand.charAt(0).toUpperCase() + brand.slice(1)}}
+            <span></span>
+          </label>
+        </li>
+      </ul>
+    </div>
 
-  <div class="filter">
-    <div class="filter_title">Rating</div>
-    <ul class="filter_rating">
-      <app-rating-filter></app-rating-filter>
-    </ul>
-  </div>
+    <div class="filter">
+      <div class="filter_title">Rating</div>
+      <ul class="filter_rating">
+        <li *ngFor="let r of rating; let index = index">
+          <label class="filter_brand">
+            <img *ngFor="let star of rating; let i = index" src="assets/{{index + 1 < i + 2 ? 'star-full' : 'star'}}.svg" alt="star">
+            <input type="checkbox" value="{{5 - index}}" (change)="onRatingCheckboxChange($event)"/>
+            <span></span>
+          </label>
+        </li>
+      </ul>
+    </div>
+  </form>
 
   <div class="filter">
     <div class="filter_title">Price</div>
-    <app-price-filter></app-price-filter>
+    <div class="filter-price">
+      <div class="filter-price_range">
+        <ngx-slider
+          [(value)]="minPrice"
+          [(highValue)]="maxPrice"
+          [options]="sliderOptions"
+        ></ngx-slider>
+        <button (click)="onPriceFilterClick()">OK</button>
+      </div>
+      <div class="filter-price_inputs">
+        <label>Min
+          <input type="number" placeholder="0" [(ngModel)]="minPrice">
+        </label>
+        <span>-</span>
+        <label>Max
+          <input type="number" placeholder="000" [(ngModel)]="maxPrice">
+        </label>
+      </div>
+    </div>
   </div>
+
+  <button form="form" type="submit" class="reset">Reset</button>
 </div>

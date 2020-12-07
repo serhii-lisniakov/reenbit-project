@@ -4,6 +4,12 @@
     justify-content: space-between;
     margin-top: 20px;
   }
+  &_empty {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding-top: 140px;
+  }
   &_items {
     padding-top: 110px;
     flex-grow: 1;

@@ -1,9 +1,0 @@
-<label
-  class="filter_brand"
-  (click)="filter($event)"
-  *ngFor="let brand of brands"
->
-  <input type="checkbox" />
-  {{brand.charAt(0).toUpperCase() + brand.slice(1)}}
-  <span></span>
-</label>

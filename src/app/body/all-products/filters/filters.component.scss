@@ -6,10 +6,7 @@
 }
 
 .filter {
-  &:first-child {
-    margin-top: 0;
-  }
-  margin-top: 40px;
+  margin-bottom: 40px;
   font-size: 14px;
   &_title {
     font-weight: 600;
@@ -71,5 +68,195 @@
     option {
       font-size: inherit;
     }
+  }
+}
+
+.filter_category {
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  cursor: pointer;
+  span {
+    transition: all .3s;
+  }
+  input {
+    position: absolute;
+    width: 0.01px;
+    visibility: hidden;
+    &:checked {
+      & + span + span {
+        color: red;
+      }
+      & + span {
+        font-weight: 900;
+      }
+    }
+  }
+  span:last-child {
+    background: #F4F8EC;
+    border-radius: 12px;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6A983C;
+    font-weight: 600;
+    font-size: 12px;
+    max-height: 18px;
+    min-width: 25px;
+    margin-left: 10px;
+  }
+}
+
+.filter_brand {
+  margin-top: 16px;
+  .active {
+    font-weight: 900;
+  }
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  font-size: inherit;
+  z-index: 2;
+  label {
+  }
+  span {
+    display: inline-flex;
+    border-radius: 3px;
+    border: 1.5px solid #D1D1D1;
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    position: relative;
+    transition: .3s;
+  }
+  input:checked + span {
+    border: 1.5px solid #46760A;
+    background: #6A983C;
+    &:after {
+      content: "";
+      position: absolute;
+      border-bottom: 2px solid #FDFDFD;
+      border-left: 2px solid #FDFDFD;
+      background: none;
+      z-index: 1;
+      width: 10px;
+      height: 4px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -90%,) rotate(-45deg);
+    }
+  }
+  input {
+    width: 0.1px;
+  }
+}
+
+.filter_rating {
+  list-style: none;
+  img {
+    margin: 0 3px;
+    width: 18px;
+  }
+}
+
+.filter-price {
+  margin-top: 15px;
+  &_inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    span {
+      align-self: flex-end;
+      margin-bottom: 10px;
+      color: #A9A9A9;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      font-weight: 600;
+      font-size: 12px;
+    }
+    input {
+      background: #F9F9F9;
+      border: 1px solid #D1D1D1;
+      border-radius: 12px;
+      padding: 10px 15px;
+      max-width: 110px;
+      text-align: center;
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+    }
+  }
+  &_range {
+    display: flex;
+    align-items: flex-end;
+    button {
+      background: none;
+      border: 2px solid #6A983C;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      padding: 0 4px;
+      margin-left: 10px;
+      position: relative;
+      top: -4px;
+      cursor: pointer;
+      transition: .3s;
+      &:hover {
+        color: #fff;
+        background: #6A983C;
+      }
+    }
+  }
+  ::ng-deep.ngx-slider {
+    .ngx-slider-bar {
+      background: #EBEBEB !important;
+      height: 6px !important;
+    }
+    .ngx-slider-selection {
+      background: #6A983C !important;
+      height: 6px !important;
+    }
+    .ngx-slider-bubble {
+      font-size: 14px !important;
+      &.ngx-slider-limit {
+        font-size: 10px !important;
+      }
+      &.ngx-slider-model-value, &.ngx-slider-model-high {
+        display: none;
+      }
+    }
+    .ngx-slider-pointer {
+      background: #FFFFFF !important;
+      border: 1px solid #D1D1D1 !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+      width: 20px !important;
+      height: 20px !important;
+      top: -7px !important;
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+.reset {
+  border: none;
+  background: none;
+  margin: 40px auto 0;
+  display: block;
+  cursor: pointer;
+  padding: 10px 40px;
+  letter-spacing: 1px;
+  &:active {
+    background: #efefef;
   }
 }
