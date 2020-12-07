@@ -12,7 +12,7 @@
     </label>
   </div>
 
-  <form id="form" novalidate [formGroup]="form" (change)="filter()" (submit)="reset()">
+  <form id="form" novalidate [formGroup]="form" (change)="filter()">
     <div class="filter">
       <div class="filter_title">Categories</div>
       <ul class="filter_items">
@@ -51,30 +51,29 @@
         </li>
       </ul>
     </div>
-  </form>
 
-  <div class="filter">
-    <div class="filter_title">Price</div>
-    <div class="filter-price">
-      <div class="filter-price_range">
-        <ngx-slider
-          [(value)]="minPrice"
-          [(highValue)]="maxPrice"
-          [options]="sliderOptions"
-        ></ngx-slider>
-        <button (click)="onPriceFilterClick()">OK</button>
-      </div>
-      <div class="filter-price_inputs">
-        <label>Min
-          <input type="number" placeholder="0" [(ngModel)]="minPrice">
-        </label>
-        <span>-</span>
-        <label>Max
-          <input type="number" placeholder="000" [(ngModel)]="maxPrice">
-        </label>
+    <div class="filter" formGroupName="price">
+      <div class="filter_title">Price</div>
+      <div class="filter-price">
+        <div class="filter-price_range">
+          <ngx-slider
+            [(value)]="form.controls.price.value.minPrice"
+            [(highValue)]="form.controls.price.value.maxPrice"
+            [options]="sliderOptions"
+          ></ngx-slider>
+          <button (click)="filter()">OK</button>
+        </div>
+        <div class="filter-price_inputs">
+          <label>Min
+            <input type="number" placeholder="0" formControlName="minPrice" [value]="form.controls.price.value.minPrice">
+          </label>
+          <span>-</span>
+          <label>Max
+            <input type="number" placeholder="000" formControlName="maxPrice" [value]="form.controls.price.value.maxPrice">
+          </label>
+        </div>
       </div>
     </div>
-  </div>
-
-  <button form="form" type="submit" class="reset">Reset</button>
+    <button (click)="reset()" class="reset">Reset</button>
+  </form>
 </div>

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -15,8 +15,6 @@ export class FiltersComponent implements OnInit {
   public categories: string[];
   public brands: string[];
   public rating = Array(5);
-  public minPrice: number;
-  public maxPrice: number;
   public sliderOptions: Options;
   public selectedValue = 'Select';
   public sortOptions = [
@@ -33,19 +31,20 @@ export class FiltersComponent implements OnInit {
     this.products = this.productService.products.getValue();
     this.categories = this.getUniqueCategories();
     this.brands = this.getBrandsFromProducts();
-    this.minPrice = Math.floor(this.getMinPrice(this.products));
-    this.maxPrice = Math.ceil(this.getMaxPrice(this.products));
-    this.sliderOptions = {
-      floor: this.minPrice,
-      ceil: this.maxPrice,
-      step: 1
-    };
     this.form = new FormGroup({
       categories: new FormControl(''),
       brands: new FormArray([]),
       rating: new FormArray([]),
-      price: new FormArray([])
+      price: new FormGroup({
+        minPrice: new FormControl(Math.floor(this.getMinPrice(this.products))),
+        maxPrice: new FormControl(Math.ceil(this.getMaxPrice(this.products)))
+      })
     });
+    this.sliderOptions = {
+      floor: this.form.controls.price.value.minPrice,
+      ceil: this.form.controls.price.value.maxPrice,
+      step: 1
+    };
   }
 
   // sorting
@@ -60,10 +59,16 @@ export class FiltersComponent implements OnInit {
 
   // reset
   public reset(): void {
+    const categories: FormControl = this.form.get('categories') as FormControl;
+    const brands: FormArray = this.form.get('brands') as FormArray;
+    const rating: FormArray = this.form.get('rating') as FormArray;
     this.selectedValue = 'Select';
     this.element.nativeElement.querySelectorAll('input').forEach(input => input.checked = false);
-    this.minPrice = this.getMinPrice(this.products);
-    this.maxPrice = this.getMaxPrice(this.products);
+    categories.setValue('');
+    brands.clear();
+    rating.clear();
+    this.form.controls.price.value.minPrice = Math.floor(this.getMinPrice(this.products));
+    this.form.controls.price.value.maxPrice = Math.ceil(this.getMaxPrice(this.products));
     this.productService.reset();
   }
 
@@ -129,13 +134,5 @@ export class FiltersComponent implements OnInit {
 
   private getMaxPrice(products): number {
     return products.reduce((acc, product) => acc > product.price ? acc : product.price);
-  }
-
-  public onPriceFilterClick(): void {
-    const price: FormArray = this.form.get('price') as FormArray;
-    price.clear();
-    price.push(new FormControl(this.minPrice));
-    price.push(new FormControl(this.maxPrice));
-    this.filter();
   }
 }

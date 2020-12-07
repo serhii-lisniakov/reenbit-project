@@ -2,5 +2,8 @@ export interface FilterForm {
   categories?: string;
   brands?: string[];
   rating?: string[];
-  price?: number[];
+  price?: {
+    minPrice: number;
+    maxPrice: number;
+  };
 }

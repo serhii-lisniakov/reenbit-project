@@ -63,11 +63,7 @@ export class ProductService {
       r = b;
     }
 
-    if (form.price.length) {
-      p = r.filter(product => product.price >= form.price[0] && product.price <= form.price[1]);
-    } else {
-      p = r;
-    }
+    p = r.filter(product => product.price >= form.price.minPrice && product.price <= form.price.maxPrice);
 
     this.products.next(p);
   }
