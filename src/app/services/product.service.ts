@@ -32,14 +32,27 @@ export class ProductService {
 
   public sorting(condition): void {
     const sortedProducts = this.products.getValue().sort((a, b) => {
-      return eval(`${condition.operator === '-' ? 'a.' : 'b.'}${condition.value}
-                      -
-                      ${condition.operator === '+' ? 'a.' : 'b.'}${condition.value}`);
+      switch (condition.operator) {
+        case 'lowToHigh':
+          switch (condition.value) {
+            case 'price': return a.price - b.price;
+            case 'rating': return a.rating - b.rating;
+          }
+          break;
+        case 'highToLow':
+          switch (condition.value) {
+            case 'price': return b.price - a.price;
+            case 'rating': return b.rating - a.rating;
+          }
+          break;
+      }
     });
     this.products.next(sortedProducts);
   }
 
   public filter(form: FilterForm): void {
+    const brands = form.brands.filter(item => typeof item !== 'boolean');
+    const rating = form.rating.filter(item => typeof item !== 'boolean');
     let filteredByCategories = [];
     let filteredByBrands = [];
     let filteredByRating = [];
@@ -51,14 +64,14 @@ export class ProductService {
       filteredByCategories = this.originProducts;
     }
 
-    if (form.brands.length) {
-      filteredByBrands = filteredByCategories.filter(product => form.brands.includes(product.farm.toLowerCase()));
+    if (brands.length) {
+      filteredByBrands = filteredByCategories.filter(product => brands.includes(product.farm.toLowerCase()));
     } else {
       filteredByBrands = filteredByCategories;
     }
 
-    if (form.rating.length) {
-      filteredByRating = filteredByBrands.filter(product => form.rating.includes(product.rating.toString()));
+    if (rating.length) {
+      filteredByRating = filteredByBrands.filter(product => rating.includes(product.rating.toString()));
     } else {
       filteredByRating = filteredByBrands;
     }

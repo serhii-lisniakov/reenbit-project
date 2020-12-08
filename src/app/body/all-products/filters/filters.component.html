@@ -2,7 +2,7 @@
   <div class="sort">
     <span class="openSans">Sort by</span>
     <label>
-      <select [(ngModel)]="selectedValue" (change)="sort(selectedValue)">
+      <select [(ngModel)]="sortValue" (ngModelChange)="sort(sortValue)">
           <option selected disabled hidden>Select</option>
           <option
             *ngFor="let sort_option of sortOptions"
@@ -12,7 +12,7 @@
     </label>
   </div>
 
-  <form novalidate [formGroup]="form" (change)="filter()" (submit)="reset()">
+  <form novalidate [formGroup]="form">
     <div class="filter">
       <div class="filter_title">Categories</div>
       <ul class="filter_items">
@@ -28,10 +28,10 @@
 
     <div class="filter">
       <div class="filter_title">Brands</div>
-      <ul class="filter_items">
-        <li *ngFor="let brand of brands">
+      <ul class="filter_items" formArrayName="brands">
+        <li *ngFor="let brand of brands; let i = index">
           <label class="filter_brand">
-            <input type="checkbox" [value]="brand" [checked]="isCheckboxChecked" (change)="onBrandsCheckboxChange($event)"/>
+            <input type="checkbox" [value]="brand" [formControlName]="i" (click)="onBrandsCheckboxChange($event)"/>
             {{brand}}
             <span></span>
           </label>
@@ -41,11 +41,11 @@
 
     <div class="filter">
       <div class="filter_title">Rating</div>
-      <ul class="filter_rating">
-        <li *ngFor="let r of rating; let index = index">
+      <ul class="filter_rating" formArrayName="rating">
+        <li *ngFor="let rate of rating; let index = index">
           <label class="filter_brand">
-            <img *ngFor="let star of rating; let i = index" src="assets/{{index + 1 < i + 2 ? 'star-full' : 'star'}}.svg" alt="star">
-            <input type="checkbox" [value]="5 - index" [checked]="isCheckboxChecked" (change)="onRatingCheckboxChange($event)"/>
+            <img *ngFor="let star of rating; let i = index" src="assets/{{index < i + 1 ? 'star-full' : 'star'}}.svg" alt="star">
+            <input type="checkbox" [value]="5 - index" [formControlName]="index" (click)="onRatingCheckboxChange($event)"/>
             <span></span>
           </label>
         </li>
@@ -65,11 +65,11 @@
         </div>
         <div class="filter-price_inputs">
           <label>Min
-            <input type="number" placeholder="0" formControlName="minPrice" [value]="form.controls.price.value.minPrice">
+            <input type="number" placeholder="0" formControlName="minPrice" [value]="form.controls.price.value.minPrice"/>
           </label>
           <span>-</span>
           <label>Max
-            <input type="number" placeholder="000" formControlName="maxPrice" [value]="form.controls.price.value.maxPrice">
+            <input type="number" placeholder="000" formControlName="maxPrice" [value]="form.controls.price.value.maxPrice"/>
           </label>
         </div>
       </div>

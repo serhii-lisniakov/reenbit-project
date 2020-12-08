@@ -6,8 +6,8 @@ import { AllProductsComponent } from './all-products.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
@@ -19,10 +19,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
   imports: [
     CommonModule,
     AllProductsRoutingModule,
+    SharedModule,
     NgxPaginationModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxSliderModule
+    NgxSliderModule,
   ]
 })
 export class AllProductsModule { }
