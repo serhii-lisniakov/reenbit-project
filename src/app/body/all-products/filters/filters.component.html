@@ -5,20 +5,20 @@
       <select [(ngModel)]="selectedValue" (change)="sort(selectedValue)">
           <option selected disabled hidden>Select</option>
           <option
-            *ngFor="let o of sortOptions"
-            [ngValue]="o"
-          >{{o.label}}</option>
+            *ngFor="let sort_option of sortOptions"
+            [ngValue]="sort_option"
+          >{{sort_option.label}}</option>
       </select>
     </label>
   </div>
 
-  <form id="form" novalidate [formGroup]="form" (change)="filter()">
+  <form novalidate [formGroup]="form" (change)="filter()" (submit)="reset()">
     <div class="filter">
       <div class="filter_title">Categories</div>
       <ul class="filter_items">
         <li *ngFor="let category of categories">
           <label class="filter_category">
-            <input type="radio" value="{{category}}" name="categories" formControlName="categories" />
+            <input type="radio" [value]="category" name="categories" formControlName="categories" />
             <span>{{category.charAt(0).toUpperCase() + category.slice(1)}}</span>
             <span>{{getCategoryAmount(category)}}</span>
           </label>
@@ -31,8 +31,8 @@
       <ul class="filter_items">
         <li *ngFor="let brand of brands">
           <label class="filter_brand">
-            <input type="checkbox" value="{{brand}}" (change)="onBrandsCheckboxChange($event)"/>
-            {{brand.charAt(0).toUpperCase() + brand.slice(1)}}
+            <input type="checkbox" [value]="brand" [checked]="isCheckboxChecked" (change)="onBrandsCheckboxChange($event)"/>
+            {{brand}}
             <span></span>
           </label>
         </li>
@@ -45,7 +45,7 @@
         <li *ngFor="let r of rating; let index = index">
           <label class="filter_brand">
             <img *ngFor="let star of rating; let i = index" src="assets/{{index + 1 < i + 2 ? 'star-full' : 'star'}}.svg" alt="star">
-            <input type="checkbox" value="{{5 - index}}" (change)="onRatingCheckboxChange($event)"/>
+            <input type="checkbox" [value]="5 - index" [checked]="isCheckboxChecked" (change)="onRatingCheckboxChange($event)"/>
             <span></span>
           </label>
         </li>
@@ -61,7 +61,7 @@
             [(highValue)]="form.controls.price.value.maxPrice"
             [options]="sliderOptions"
           ></ngx-slider>
-          <button (click)="filter()">OK</button>
+          <button type="button" (click)="filter()">OK</button>
         </div>
         <div class="filter-price_inputs">
           <label>Min
@@ -74,6 +74,6 @@
         </div>
       </div>
     </div>
-    <button (click)="reset()" class="reset">Reset</button>
+    <button (click)="reset()" type="submit" class="reset">Reset</button>
   </form>
 </div>

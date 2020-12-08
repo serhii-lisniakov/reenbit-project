@@ -112,6 +112,7 @@
 
 .filter_brand {
   margin-top: 16px;
+  text-transform: capitalize;
   .active {
     font-weight: 900;
   }
@@ -122,8 +123,6 @@
   cursor: pointer;
   font-size: inherit;
   z-index: 2;
-  label {
-  }
   span {
     display: inline-flex;
     border-radius: 3px;

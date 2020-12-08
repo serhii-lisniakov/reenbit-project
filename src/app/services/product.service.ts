@@ -40,32 +40,32 @@ export class ProductService {
   }
 
   public filter(form: FilterForm): void {
-    let c = [];
-    let b = [];
-    let r = [];
-    let p = [];
+    let filteredByCategories = [];
+    let filteredByBrands = [];
+    let filteredByRating = [];
+    let filteredByPrice = [];
 
     if (form.categories.length) {
-      c = this.originProducts.filter(product => product.category.toLowerCase() === form.categories);
+      filteredByCategories = this.originProducts.filter(product => product.category.toLowerCase() === form.categories);
     } else {
-      c = this.originProducts;
+      filteredByCategories = this.originProducts;
     }
 
     if (form.brands.length) {
-      b = c.filter(product => form.brands.includes(product.farm.toLowerCase()));
+      filteredByBrands = filteredByCategories.filter(product => form.brands.includes(product.farm.toLowerCase()));
     } else {
-      b = c;
+      filteredByBrands = filteredByCategories;
     }
 
     if (form.rating.length) {
-      r = b.filter(product => form.rating.includes(product.rating.toString()));
+      filteredByRating = filteredByBrands.filter(product => form.rating.includes(product.rating.toString()));
     } else {
-      r = b;
+      filteredByRating = filteredByBrands;
     }
 
-    p = r.filter(product => product.price >= form.price.minPrice && product.price <= form.price.maxPrice);
+    filteredByPrice = filteredByRating.filter(product => product.price >= form.price.minPrice && product.price <= form.price.maxPrice);
 
-    this.products.next(p);
+    this.products.next(filteredByPrice);
   }
 
   public reset(): void {

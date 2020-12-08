@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -15,6 +15,7 @@ export class FiltersComponent implements OnInit {
   public categories: string[];
   public brands: string[];
   public rating = Array(5);
+  public isCheckboxChecked = false;
   public sliderOptions: Options;
   public selectedValue = 'Select';
   public sortOptions = [
@@ -24,14 +25,18 @@ export class FiltersComponent implements OnInit {
     {value: 'rating', operator: '+', label: 'Rating: High to Low'},
   ];
 
-  constructor(private productService: ProductService,
-              private element: ElementRef) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.products = this.productService.products.getValue();
     this.categories = this.getUniqueCategories();
     this.brands = this.getBrandsFromProducts();
-    this.form = new FormGroup({
+    this.form = this.getForm();
+    this.initRangeSliderOptions();
+  }
+
+  private getForm(): FormGroup {
+    return new FormGroup({
       categories: new FormControl(''),
       brands: new FormArray([]),
       rating: new FormArray([]),
@@ -40,6 +45,9 @@ export class FiltersComponent implements OnInit {
         maxPrice: new FormControl(Math.ceil(this.getMaxPrice(this.products)))
       })
     });
+  }
+
+  private initRangeSliderOptions(): void {
     this.sliderOptions = {
       floor: this.form.controls.price.value.minPrice,
       ceil: this.form.controls.price.value.maxPrice,
@@ -59,24 +67,15 @@ export class FiltersComponent implements OnInit {
 
   // reset
   public reset(): void {
-    const categories: FormControl = this.form.get('categories') as FormControl;
-    const brands: FormArray = this.form.get('brands') as FormArray;
-    const rating: FormArray = this.form.get('rating') as FormArray;
+    this.isCheckboxChecked = false;
     this.selectedValue = 'Select';
-    this.element.nativeElement.querySelectorAll('input').forEach(input => input.checked = false);
-    categories.setValue('');
-    brands.clear();
-    rating.clear();
-    this.form.controls.price.value.minPrice = Math.floor(this.getMinPrice(this.products));
-    this.form.controls.price.value.maxPrice = Math.ceil(this.getMaxPrice(this.products));
+    this.form = this.getForm();
     this.productService.reset();
   }
 
   // categories
   private getAllCategoriesFromProducts(): string[] {
-    const categories = [];
-    this.products.map(product => categories.push(product.category.toLowerCase()));
-    return categories;
+    return this.products.map(product => product.category.toLowerCase());
   }
 
   private getUniqueCategories(): string[] {
@@ -84,7 +83,7 @@ export class FiltersComponent implements OnInit {
     return Array.from(new Set(categories));
   }
 
-  public getCategoryAmount(category): number {
+  public getCategoryAmount(category: string): number {
     let count = 0;
     const categories = this.getAllCategoriesFromProducts();
     categories.map(mapCategory => mapCategory === category ? count += 1 : null);
@@ -93,18 +92,19 @@ export class FiltersComponent implements OnInit {
 
   // brands
   private getBrandsFromProducts(): string[] {
-    const brands = [];
-    this.products.map(product => brands.push(product.farm.toLowerCase()));
+    const brands = this.products.map(product => product.farm.toLowerCase());
     return Array.from(new Set(brands));
   }
 
-  public onBrandsCheckboxChange(e): void {
+  public onBrandsCheckboxChange(e: Event): void {
+    this.isCheckboxChecked = false;
     const brands: FormArray = this.form.get('brands') as FormArray;
-    if (e.target.checked) {
-      brands.push(new FormControl(e.target.value));
+    const target = e.target as HTMLInputElement;
+    if (target.checked) {
+      brands.push(new FormControl(target.value));
     } else {
       brands.value.forEach((brand, i) => {
-        if (brand === e.target.value.toLowerCase()) {
+        if (brand === target.value.toLowerCase()) {
           brands.removeAt(i);
           return;
         }
@@ -113,13 +113,15 @@ export class FiltersComponent implements OnInit {
   }
 
   // rating
-  public onRatingCheckboxChange(e): void {
+  public onRatingCheckboxChange(e: Event): void {
+    this.isCheckboxChecked = false;
     const rating: FormArray = this.form.get('rating') as FormArray;
-    if (e.target.checked) {
-      rating.push(new FormControl(e.target.value));
+    const target = e.target as HTMLInputElement;
+    if (target.checked) {
+      rating.push(new FormControl(target.value));
     } else {
       rating.value.forEach((rate, i) => {
-        if (rate === e.target.value.toLowerCase()) {
+        if (rate === target.value.toLowerCase()) {
           rating.removeAt(i);
           return;
         }
@@ -128,11 +130,11 @@ export class FiltersComponent implements OnInit {
   }
 
   // price
-  private getMinPrice(products): number {
-    return products.reduce((acc, product) => acc < product.price ? acc : product.price);
+  private getMinPrice(products: Product[]): number {
+    return products.reduce((acc, product) => acc < product.price ? acc : product.price, 1);
   }
 
-  private getMaxPrice(products): number {
-    return products.reduce((acc, product) => acc > product.price ? acc : product.price);
+  private getMaxPrice(products: Product[]): number {
+    return products.reduce((acc, product) => acc > product.price ? acc : product.price, 1);
   }
 }
