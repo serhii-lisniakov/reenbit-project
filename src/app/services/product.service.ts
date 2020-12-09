@@ -3,6 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 import { BehaviorSubject } from 'rxjs';
 import { FilterForm } from '../models/filter-form.model';
 import { Product } from '../models/product.model';
+import { DropDownOption } from '../models/drop-down-select.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class ProductService {
     });
   }
 
-  public sorting(condition): void {
+  public sorting(condition: DropDownOption): void {
     const sortedProducts = this.products.getValue().sort((a, b) => {
       switch (condition.operator) {
         case 'lowToHigh':

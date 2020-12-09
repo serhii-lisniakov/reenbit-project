@@ -1,9 +1,3 @@
-export interface DropDownOption {
-  value: string;
-  operator?: string;
-  label: string;
-}
-
 export const sortDropDownOptions = [
   {value: 'price', operator: 'lowToHigh', label: 'Price: Low to High'},
   {value: 'price', operator: 'highToLow', label: 'Price: High to Low'},

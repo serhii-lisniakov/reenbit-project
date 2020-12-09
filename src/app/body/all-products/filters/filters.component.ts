@@ -3,9 +3,10 @@ import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Options } from '@angular-slider/ngx-slider';
-import { DropDownOption, sortDropDownOptions } from './sort-options';
+import { sortDropDownOptions } from './sort-options';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DropDownOption } from '../../../models/drop-down-select.model';
 
 @Component({
   selector: 'app-filters',
@@ -51,7 +52,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
     });
   }
 
-  // subscribers
   private subscribeToForm(): void {
     this.form.valueChanges.pipe(
       takeUntil(this.destroy$)
@@ -68,17 +68,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
     };
   }
 
-  // sorting
   public sort(condition): void {
     this.productService.sorting(condition);
   }
 
-  // filter
   public filter(): void {
     this.productService.filter(this.form.value);
   }
 
-  // reset
   public reset(): void {
     this.sortValue = 'Select';
     this.form = this.getForm();
@@ -86,7 +83,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.productService.reset();
   }
 
-  // categories
   private getAllCategoriesFromProducts(): string[] {
     return this.products.map(product => product.category.toLowerCase());
   }
@@ -103,7 +99,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
     return count;
   }
 
-  // brands
   private getBrandsFromProducts(): string[] {
     const brands = this.products.map(product => product.farm.toLowerCase());
     return Array.from(new Set(brands));
@@ -124,7 +119,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
     }
   }
 
-  // rating
   public onRatingCheckboxChange(e: Event): void {
     const rating: FormArray = this.form.get('rating') as FormArray;
     const target = e.target as HTMLInputElement;
@@ -140,7 +134,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
     }
   }
 
-  // price
   private getMinPrice(products: Product[]): number {
     return products.reduce((acc, product) => acc < product.price ? acc : product.price, 1);
   }
