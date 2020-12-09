@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product',

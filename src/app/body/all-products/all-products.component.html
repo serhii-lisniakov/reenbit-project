@@ -8,7 +8,7 @@
 <div class="all-products_container">
   <app-filters></app-filters>
 
-  <div class="all-products_items">
+  <div class="all-products_items" *ngIf="products.length; else noProducts">
     <div *ngFor="let product of products | paginate: {
       id: 'products_pagination',
       itemsPerPage: productsToShow,
@@ -18,6 +18,10 @@
       <app-product-card [product]="product"></app-product-card>
     </div>
   </div>
+
+  <ng-template #noProducts>
+    <p class="all-products_empty">No Products to show! Choose another query</p>
+  </ng-template>
 
 </div>
 
