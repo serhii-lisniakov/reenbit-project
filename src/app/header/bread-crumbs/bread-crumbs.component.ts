@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BreadCrumbsService } from '../../services/bread-crumbs.service';
-import { BreadCrumb } from '../../models/bread-crumb.model';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ChildActivationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'app-bread-crumbs',
@@ -11,15 +11,15 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class BreadCrumbsComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
-  public crumbs: BreadCrumb[];
   public title: string;
-  constructor(private breadCrumbsService: BreadCrumbsService) { }
+  public crumbs = new BehaviorSubject([]);
+
+  constructor(private breadCrumbsService: BreadCrumbsService,
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.breadCrumbsService.routeSubscribe();
-    this.breadCrumbsService.crumbs.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(crumbs => this.crumbs = crumbs);
+    this.routeSubscribe();
+
     this.breadCrumbsService.title.pipe(
       takeUntil(this.destroy$)
     ).subscribe(title => this.title = title.charAt(0).toUpperCase() + title.slice(1));
@@ -28,5 +28,15 @@ export class BreadCrumbsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private routeSubscribe(): void {
+    this.router.events.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(event => {
+      if (event instanceof ChildActivationStart) {
+        this.crumbs.next(event.snapshot.data.crumbs);
+      }
+    });
   }
 }

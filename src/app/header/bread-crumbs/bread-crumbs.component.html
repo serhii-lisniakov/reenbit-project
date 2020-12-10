@@ -1,5 +1,5 @@
 <div class="breadcrumbs">
-  <a *ngFor="let crumb of crumbs" [routerLink]="crumb.path">
+  <a *ngFor="let crumb of crumbs.getValue()" [routerLink]="crumb.path">
     {{crumb.title ? title : crumb.label}}
   </a>
 </div>
