@@ -1,3 +1,5 @@
 <div class="breadcrumbs">
-  <a routerLink="/home">Homepage</a> / All products
+  <a *ngFor="let crumb of crumbs" [routerLink]="crumb.path">
+    {{crumb.title ? title : crumb.label}}
+  </a>
 </div>

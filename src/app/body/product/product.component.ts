@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { BreadCrumbsService } from '../../services/bread-crumbs.service';
 
 @Component({
   selector: 'app-product',
@@ -14,18 +15,21 @@ export class ProductComponent implements OnInit {
   public proposals: Product[];
 
   constructor(private productService: ProductService,
+              private breadCrumbsService: BreadCrumbsService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(): void {
     this.getProduct();
     this.subscribeToRouteChanges();
+    this.breadCrumbsService.title.next(this.product.title);
   }
 
   private subscribeToRouteChanges(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.getProduct();
+        this.breadCrumbsService.title.next(this.product.title);
       }
     });
   }
