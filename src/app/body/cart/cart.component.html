@@ -1,12 +1,20 @@
-<div class="cart_container">
+<div class="cart_container" [formGroup]="form">
   <div class="cart_info">
     <div>
       <div class="cart_title"><h3>Billing info</h3></div>
       <div class="cart_subtitle">Please enter your billing info</div>
       <div class="cart_info-inputs">
-        <label *ngFor="let field of cartInputs">
-          {{field.label}}
-          <input [type]="field.type" [placeholder]="field.placeholder" >
+        <label *ngFor="let input of cartInputs">
+          {{input.label}}
+          <input [type]="input.type" [placeholder]="input.placeholder" [formControlName]="input.formControlName">
+        </label>
+
+        <label class="country">
+          State / Country
+          <select formControlName="country" (click)="addClassActive($event)">
+            <option class="green" value="" hidden disabled [selected]="true">Choose a state or Country</option>
+            <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+          </select>
         </label>
       </div>
     </div>
@@ -17,7 +25,7 @@
       <div class="cart_info-inputs textarea">
         <label>
           Order notes
-          <textarea placeholder="Need a specific delivery day? Sending a gift? Let’s say ..."></textarea>
+          <textarea formControlName="notes" placeholder="Need a specific delivery day? Sending a gift? Let’s say ..."></textarea>
         </label>
       </div>
     </div>
@@ -27,12 +35,12 @@
       <div class="cart_subtitle">We are getting to the end. Just few clicks and your order is ready!</div>
       <div class="cart_info-inputs cart_info-checkbox">
         <label class="openSans">
-          <input type="checkbox"/>
+          <input formControlName="advertisement" type="checkbox"/>
           <span></span>
           I agree with sending an Marketing and newsletter emails. No spam, promised!
         </label>
         <label class="openSans">
-          <input type="checkbox"/>
+          <input formControlName="policy" type="checkbox"/>
           <span></span>
           I agree with our <a href="#">terms and conditions</a> and <a href="#">privacy policy</a>.
         </label>
@@ -75,4 +83,4 @@
     </div>
   </div>
 </div>
-<div><button class="cart_submit">Complete order</button></div>
+<div><button class="cart_submit" (click)="logForm()">Complete order</button></div>

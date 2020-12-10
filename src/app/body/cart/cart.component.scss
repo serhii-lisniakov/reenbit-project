@@ -27,13 +27,31 @@
         font-weight: 600;
         font-size: 12px;
         margin-top: 32px;
+        order: 1;
+        &:nth-last-child(2) {
+          order: 2;
+        }
       }
-      input, textarea {
+      input, textarea, select {
         background: #F9F9F9;
         border: 1px solid #D1D1D1;
         border-radius: 12px;
         padding: 10px 20px;
         margin-top: 2px;
+        transition: .3s;
+        &::placeholder {
+          color: #A9A9A9;
+        }
+      }
+      select {
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+        background-position: 95% center;
+        background-repeat: no-repeat;
+        color: #A9A9A9;
+        &.active {
+          color: #151515;
+        }
       }
       &.textarea {
         label {
@@ -50,7 +68,7 @@
       label {
         flex-direction: row;
         align-items: center;
-        width: 100%;
+        width: fit-content;
         background: #F9F9F9;
         border: 1px solid #D1D1D1;
         border-radius: 12px;
