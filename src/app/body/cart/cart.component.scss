@@ -1,0 +1,185 @@
+.cart {
+  &_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  &_title {
+    font-weight: 600;
+    font-size: 22px;
+  }
+  &_subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    color: #A9A9A9;
+  }
+  &_info {
+    flex-grow: 1;
+    max-width: 670px;
+    &-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      label {
+        display: flex;
+        flex-direction: column;
+        width: calc(50% - 16px);
+        font-weight: 600;
+        font-size: 12px;
+        margin-top: 32px;
+      }
+      input, textarea {
+        background: #F9F9F9;
+        border: 1px solid #D1D1D1;
+        border-radius: 12px;
+        padding: 10px 20px;
+        margin-top: 2px;
+      }
+      &.textarea {
+        label {
+          width: 100%;
+        }
+        textarea {
+          height: 112px;
+          resize: none;
+        }
+      }
+    }
+    &-checkbox {
+      flex-direction: column;
+      label {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        background: #F9F9F9;
+        border: 1px solid #D1D1D1;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: normal;
+        font-size: 14px;
+        cursor: pointer;
+        a {
+          font: inherit;
+          margin: 0 4px;
+          text-decoration: underline;
+        }
+      }
+      input {
+        width: 0.1px;
+        opacity: 0;
+      }
+      span {
+        display: inline-flex;
+        border-radius: 3px;
+        border: 1.5px solid #D1D1D1;
+        min-width: 20px;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        position: relative;
+        transition: .3s;
+      }
+      input:checked + span {
+        border: 1.5px solid #46760A;
+        background: #6A983C;
+        &:after {
+          content: "";
+          position: absolute;
+          border-bottom: 2px solid #FDFDFD;
+          border-left: 2px solid #FDFDFD;
+          background: none;
+          z-index: 1;
+          width: 10px;
+          height: 4px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -90%,) rotate(-45deg);
+        }
+      }
+    }
+    &-block {
+      margin-top: 64px;
+    }
+  }
+  &_summary {
+    margin-left: 32px;
+    flex-grow: 1;
+    min-width: 468px;
+    border: 1px solid #D1D1D1;
+    border-radius: 12px;
+    padding: 32px 16px;
+    &-list {
+      margin-top: 40px;
+      max-height: 590px;
+      overflow-y: scroll;
+      padding-right: 7px;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(210, 210, 210, 0.5);
+        border-radius: 3px;
+      }
+    }
+    &-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 12px;
+      margin-top: 12px;
+      &:first-child {
+        margin-top: 40px;
+      }
+    }
+    &-promo {
+      display: flex;
+      justify-content: space-between;
+      background: #F9F9F9;
+      border: 1px solid #D1D1D1;
+      border-radius: 12px;
+      padding: 10px 20px;
+      margin-top: 32px;
+      button {
+        font-weight: bold;
+        font-size: 15px;
+      }
+      input, button {
+        border: none;
+        background: none;
+      }
+    }
+    &-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      .titles {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        span:first-child {
+          font-weight: 600;
+        }
+      }
+      .price {
+        font-weight: 600;
+        font-size: 26px;
+      }
+    }
+  }
+  &_submit {
+    margin-top: 32px;
+    background: #6A983C;
+    border: 2px solid #46760A;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 15px;
+    color: #fff;
+    padding: 16px 48px;
+    cursor: pointer;
+    transition: .3s;
+    &:active {
+      background: #46760A;
+    }
+    margin-bottom: 100px;
+  }
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CartInput } from '../../models/cart-input.model';
+import { CartInputs } from './cart-inputs.list';
 
 @Component({
   selector: 'app-basket',
@@ -6,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  public cartInputs: CartInput[] = CartInputs;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
