@@ -11,7 +11,7 @@
 
         <label class="country">
           State / Country
-          <select formControlName="country" (click)="addClassActive($event)">
+          <select formControlName="country" [class.active]="form.controls['country'].touched">
             <option class="green" value="" hidden disabled [selected]="true">Choose a state or Country</option>
             <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
           </select>
@@ -52,20 +52,24 @@
     <div class="cart_title"><h3>Order Summary</h3></div>
     <div class="cart_subtitle">Price can change depending on shipping method and taxes of your state.</div>
     <div class="cart_summary-list">
-      <app-product-card></app-product-card>
-      <app-product-card></app-product-card>
-      <app-product-card></app-product-card>
-      <app-product-card></app-product-card>
+      <app-product-card
+        *ngFor="let product of orderList.value"
+        [product]="product"
+        [orderList]="orderList"
+      ></app-product-card>
+      <div class="cart_summary-list--empty" *ngIf="!orderList.value.length">
+        You have got no products in your cart! <br/> Choose some <a routerLink="/products">here</a>
+      </div>
     </div>
 
     <div>
       <div class="cart_summary-total">
         <span>Subtotal</span>
-        <span>73.98 USD</span>
+        <span>{{subtotalPrice}} USD</span>
       </div>
       <div class="cart_summary-total">
         <span>Tax</span>
-        <span>17% 16.53 USD</span>
+        <span>17% {{tax}} USD</span>
       </div>
     </div>
 
@@ -79,8 +83,14 @@
         <span>Total Order</span>
         <span class="green">Guaranteed delivery day:  June 12, 2020</span>
       </div>
-      <div class="price green">89.84 USD</div>
+      <div class="price green">{{+(subtotalPrice + tax).toFixed(2)}} USD</div>
     </div>
   </div>
 </div>
-<div><button class="cart_submit" (click)="logForm()">Complete order</button></div>
+<div><button class="cart_submit" [disabled]="isDisabled" (click)="sendForm()">Complete order</button></div>
+<div class="cart-alert" [class.disabled]="!isSuccess">
+  <div class="cart-alert_body">
+    Success!
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>

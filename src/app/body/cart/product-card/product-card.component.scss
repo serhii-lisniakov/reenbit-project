@@ -3,9 +3,6 @@
   border-bottom: 1px solid #F9F9F9;
   padding-bottom: 22px;
   margin-top: 32px;
-  &:first-child {
-    margin-top: 0;
-  }
   &_right {
     flex-grow: 1;
     max-width: 100px;
@@ -37,10 +34,14 @@
   &_title {
     font-weight: 500;
     font-size: 15px;
+    &:first-letter {
+      text-transform: uppercase;
+    }
   }
   &_info {
     font-size: 12px;
     &-item {
+      margin-top: 3px;
       span:first-child {
         display: inline-block;
         color: #A9A9A9;
@@ -49,17 +50,26 @@
     }
   }
   &_rating {
-    margin: 16px 0 18px;
+    margin: 15px 0;
   }
   &_price {
     display: flex;
     justify-content: space-between;
+    position: relative;
     .price {
       font-weight: 600;
       font-size: 18px;
+      transition: .3s;
+      &_calc {
+        position: absolute;
+        font-size: 10px;
+        color: #A9A9A9;
+        top: -10px;
+      }
     }
     .count {
       display: flex;
+      align-items: center;
       background: #F9F9F9;
       border: 1px solid #D1D1D1;
       border-radius: 12px;
@@ -73,7 +83,39 @@
       }
       input {
         padding: 0 5px;
-        max-width: 50px;
+        max-width: 40px;
+        text-align: center;
+        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+          appearance: none;
+        }
+      }
+      &:hover .count_buttons {
+        opacity: 1;
+      }
+      &_buttons {
+        opacity: 0;
+        transition: .3s;
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 15px;
+          height: 10px;
+          font-size: 10px;
+          border: none;
+          background: #e2e2e2;
+          transition: .3s;
+          border-radius: 3px;
+          &:hover {
+            opacity: 1;
+          }
+          &:first-child {
+            margin-bottom: 3px;
+          }
+          &:active {
+            background: #767676;
+          }
+        }
       }
     }
   }

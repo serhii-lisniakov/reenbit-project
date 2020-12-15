@@ -1,4 +1,6 @@
 <div class="product_wrapper" *ngIf="product; else noProduct">
+  <div class="product_alert" [class.active]="isNotification">added!</div>
+
   <div class="product_photos">
     <div class="product_photos-top">
       <img [src]="product.imgUrl" alt="">
@@ -62,15 +64,21 @@
       </div>
 
       <div class="product_county">
-        <input type="number" value="1" />
+        <input type="number" [(ngModel)]="productCount" (keydown)="onCountChange()" />
+        <div class="product_county-buttons">
+          <button (click)="handleCount(1)">+</button>
+          <button (click)="handleCount(-1)">-</button>
+        </div>
         <select>
-          <option selected>Pcs</option>
-          <option value="">Box</option>
+          <option
+            *ngFor="let option of product.buyProperties.split(', ')"
+            [value]="option"
+          >{{option}}</option>
         </select>
       </div>
 
       <div class="product_button">
-        <button>
+        <button (click)="addProductToCart()">
           <img src="assets/plus.svg" alt="">
           Add to cart</button>
       </div>

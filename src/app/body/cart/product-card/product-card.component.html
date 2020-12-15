@@ -1,33 +1,38 @@
 <div class="product-card">
   <div class="product-card_right">
-    <img class="product-card_image" src="assets/mockImg.svg" alt="">
+    <a routerLink="/products/{{product.id}}">
+      <img class="product-card_image" [src]="product.imgUrl" alt="{{product.category}}">
+    </a>
     <button class="openSans"><img src="assets/heart-red.svg" alt="">Wishlist</button>
-    <button class="openSans"><img src="assets/delete.svg" alt="">Remove</button>
+    <button (click)="deleteProductFromCart(product)" class="openSans"><img src="assets/delete.svg" alt="">Remove</button>
   </div>
   <div class="product-card_content">
-    <div class="product-card_title">Product title</div>
+    <div class="product-card_title">{{product.title}}</div>
     <div class="product-card_info openSans">
       <div class="product-card_info-item">
-        <span>Farm:</span><span class="black">Tharamis Farm</span>
+        <span>Farm:</span><span class="black">{{product.farm}}</span>
       </div>
       <div class="product-card_info-item">
-        <span>Freshness:</span><span class="black">1 day old</span>
+        <span>Freshness:</span><span class="black">{{product.freshness}}</span>
       </div>
       <div class="product-card_rating">
-        <img src="assets/star-full.svg" alt="">
-        <img src="assets/star-full.svg" alt="">
-        <img src="assets/star-full.svg" alt="">
-        <img src="assets/star-full.svg" alt="">
-        <img src="assets/star.svg" alt="">
+        <img *ngFor="let star of productRating" [src]="'assets/' + star + '.svg'" alt="star">
       </div>
     </div>
     <div class="product-card_price">
-      <div class="price green">36.99 USD</div>
+      <div class="price_calc">{{product.count}} x {{product.price}} USD</div>
+      <div class="price green">{{(product.price * product.count).toFixed(2)}} USD</div>
       <div class="count">
-        <input type="number">
+        <input (keydown)="onCountChange()" type="number" [(ngModel)]="product.count"/>
+        <div class="count_buttons">
+          <button (click)="handleCount(1)">+</button>
+          <button (click)="handleCount(-1)">-</button>
+        </div>
         <select>
-          <option value="pcs">Psc</option>
-          <option value="pcs">Psc</option>
+          <option
+            *ngFor="let option of product.buyProperties.split(', ')"
+            [value]="option"
+          >{{option}}</option>
         </select>
       </div>
     </div>

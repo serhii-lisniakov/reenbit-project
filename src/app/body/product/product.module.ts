@@ -6,6 +6,7 @@ import { ProductComponent } from './product.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tab/tab.component';
 import { ProposalCardComponent } from './proposal-card/proposal-card.component';
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
@@ -15,9 +16,10 @@ import { ProposalCardComponent } from './proposal-card/proposal-card.component';
     TabComponent,
     ProposalCardComponent
   ],
-  imports: [
-    CommonModule,
-    ProductRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ProductRoutingModule,
+        SharedModule
+    ]
 })
 export class ProductModule { }

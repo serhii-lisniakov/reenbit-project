@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FilterForm } from '../models/filter-form.model';
 import { Product } from '../models/product.model';
 import { DropDownOption } from '../models/drop-down-select.model';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,13 @@ import { DropDownOption } from '../models/drop-down-select.model';
 export class ProductService {
   private originProducts: Product[];
   public products = new BehaviorSubject([]);
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase,
+              private cartService: CartService) { }
 
   public getProducts(): Promise<any[]> {
     return new Promise((resolve) => {
       this.db.database.ref(`products`).once('value').then(snapshot => {
+        this.cartService.getOrderList().then();
         this.originProducts = snapshot.val();
         this.products.next(snapshot.val());
         resolve(snapshot.val());

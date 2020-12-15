@@ -31,4 +31,5 @@ export interface Product {
   description: ProductDescription;
   reviews?: ProductReviewOrQuestion[];
   questions?: ProductReviewOrQuestion[];
+  count?: number;
 }
