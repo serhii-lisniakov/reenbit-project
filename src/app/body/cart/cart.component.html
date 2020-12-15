@@ -9,6 +9,19 @@
           <input [type]="input.type" [placeholder]="input.placeholder" [formControlName]="input.formControlName">
         </label>
 
+        <label class="city">
+          Town / City
+            <input type="text"
+                   placeholder="Town or city"
+                   formControlName="townOrCity"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option class="city_option" *ngFor="let city of filteredCities | async" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </mat-autocomplete>
+        </label>
+
         <label class="country">
           State / Country
           <select formControlName="country" [class.active]="form.controls['country'].touched">

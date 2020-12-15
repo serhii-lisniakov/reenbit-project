@@ -5,9 +5,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Country } from '../../models/country.model';
 import { countries } from './constant-lists/countries.list';
 import { Product } from '../../models/product.model';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
+import { City } from '../../models/city.model';
+import { cities } from './constant-lists/cities.list';
 
 @Component({
   selector: 'app-basket',
@@ -19,11 +21,14 @@ export class CartComponent implements OnInit, OnDestroy {
   public cartInputs: CartInput[] = CartInputs;
   public form: FormGroup;
   public countries: Country[] = countries;
+  public cities: City[] = cities;
+  public filteredCities: Observable<City[]>;
   public orderList = new BehaviorSubject<Product[]>([]);
   public subtotalPrice: number;
   public tax: number;
   public isDisabled = true;
   public isSuccess = false;
+
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
@@ -36,6 +41,16 @@ export class CartComponent implements OnInit, OnDestroy {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(val => {
       this.isDisabled = !(this.form.valid && this.orderList.value.length > 0);
     });
+    this.filteredCities = this.form.controls.townOrCity.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        startWith(''),
+        map(value => this.filterCities(value))
+      );
+  }
+
+  private filterCities(value: string): City[] {
+    return this.cities.filter(city => city.name.toLowerCase().includes(value.toLowerCase()));
   }
 
   private initForm(): void {

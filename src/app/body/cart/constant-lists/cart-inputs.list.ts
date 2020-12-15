@@ -30,12 +30,6 @@ export const CartInputs = [
     formControlName: 'address'
   },
   {
-    label: 'Town / City',
-    type: 'text',
-    placeholder: 'Town or City',
-    formControlName: 'townOrCity'
-  },
-  {
     label: 'ZIP / Postal code',
     type: 'text',
     placeholder: 'Postal code or ZIP',
