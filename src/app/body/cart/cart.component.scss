@@ -28,8 +28,24 @@
         font-size: 12px;
         margin-top: 32px;
         order: 1;
+        position: relative;
         &:nth-last-child(3) {
           order: 2;
+        }
+        .ng-touched.ng-invalid {
+          border-color: red;
+          background: rgba(255, 0, 0, 0.03);
+        }
+        .ng-touched.ng-invalid + .valid-label {
+          display: block;
+        }
+        .valid-label {
+          display: none;
+          color: red;
+          font-size: 10px;
+          position: absolute;
+          top: 4px;
+          right: 8px;
         }
       }
       input, textarea, select {

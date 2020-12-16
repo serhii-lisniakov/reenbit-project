@@ -72,8 +72,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email]),
-      phone: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [Validators.required, Validators.pattern('[+]*[0-9]{5,15}$')]),
       address: new FormControl('', [Validators.required]),
       townOrCity: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),

@@ -7,6 +7,7 @@
         <label *ngFor="let input of cartInputs">
           {{input.label}}
           <input [type]="input.type" [placeholder]="input.placeholder" [formControlName]="input.formControlName">
+          <span class="valid-label">Enter your {{input.formControlName}}</span>
         </label>
 
         <label class="city">
@@ -15,6 +16,7 @@
                    placeholder="Town or city"
                    formControlName="townOrCity"
                    [matAutocomplete]="auto">
+            <span class="valid-label">Enter your city</span>
             <mat-autocomplete #auto="matAutocomplete">
               <mat-option class="city_option" *ngFor="let city of filteredCities | async" [value]="city.name">
                 {{city.name}}
@@ -28,6 +30,7 @@
             <option class="green" value="" hidden disabled [selected]="true">Choose a state or Country</option>
             <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
           </select>
+          <span class="valid-label">Enter tour country</span>
         </label>
       </div>
     </div>
