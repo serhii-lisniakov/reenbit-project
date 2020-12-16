@@ -33,24 +33,39 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initForm();
-    this.cartService.orderList.pipe(takeUntil(this.destroy$)).subscribe(val => {
-      this.orderList.next(val);
+    this.subscribeToCartServiceOrderList();
+    this.subscribeToLocalOrderList();
+    this.subscribeToForm();
+    this.setFilteredCities();
+  }
+
+  private subscribeToCartServiceOrderList(): void {
+    this.cartService.orderList.pipe(takeUntil(this.destroy$)).subscribe((newOrderList: Product[]) => {
+      this.orderList.next(newOrderList);
       this.getPrices();
     });
-    this.orderList.pipe(takeUntil(this.destroy$)).subscribe(val => this.getPrices());
-    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(val => {
+  }
+
+  private subscribeToLocalOrderList(): void {
+    this.orderList.pipe(takeUntil(this.destroy$)).subscribe(() => this.getPrices());
+  }
+
+  private subscribeToForm(): void {
+    this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.isDisabled = !(this.form.valid && this.orderList.value.length > 0);
     });
+  }
+
+  private setFilteredCities(): void {
     this.filteredCities = this.form.controls.townOrCity.valueChanges
       .pipe(
-        takeUntil(this.destroy$),
         startWith(''),
-        map(value => this.filterCities(value))
+        map(cityName => this.filterCities(cityName))
       );
   }
 
-  private filterCities(value: string): City[] {
-    return this.cities.filter(city => city.name.toLowerCase().includes(value.toLowerCase()));
+  private filterCities(cityName: string): City[] {
+    return this.cities.filter(city => city.name.toLowerCase().includes(cityName.toLowerCase()));
   }
 
   private initForm(): void {
@@ -75,9 +90,8 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   public sendForm(): void {
-    if (this.form.valid && this.orderList.value.length !== 0) {
+    if (this.form.valid && this.orderList.value?.length) {
       this.form.value.orderList = this.orderList.value;
-      console.log(this.form.value);
       this.isSuccess = true;
       this.initForm();
       this.cartService.orderList.next([]);

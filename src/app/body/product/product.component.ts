@@ -47,11 +47,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   private getProduct(): void {
     const [product, products] = this.route.snapshot.data.data;
     this.product = product;
-    this.productRating = this.setProductsRating(this.product.rating);
+    this.productRating = this.getProductsRating(this.product.rating);
     this.proposals = this.getRandomProposals(products);
   }
 
-  private setProductsRating(rating: number): string[] {
+  private getProductsRating(rating: number): string[] {
     return Array(5).fill('star').map((item, i) => i < rating ? 'star-black' : 'star');
   }
 

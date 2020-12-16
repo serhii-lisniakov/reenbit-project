@@ -1,4 +1,6 @@
-export const cities = [
+import {City} from '../../../models/city.model';
+
+export const cities: City[] = [
   {
     name: 'Алупка',
     lat: '44.4197222',

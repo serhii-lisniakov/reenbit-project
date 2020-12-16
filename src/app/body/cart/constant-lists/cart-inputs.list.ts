@@ -1,4 +1,6 @@
-export const CartInputs = [
+import {CartInput} from '../../../models/cart-input.model';
+
+export const CartInputs: CartInput[] = [
   {
     label: 'First name',
     type: 'text',

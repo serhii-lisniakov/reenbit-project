@@ -1,4 +1,6 @@
-export const countries = [
+import {Country} from '../../../models/country.model';
+
+export const countries: Country[] = [
   {name: 'Afghanistan', code: 'AF'},
   {name: 'Åland Islands', code: 'AX'},
   {name: 'Albania', code: 'AL'},
