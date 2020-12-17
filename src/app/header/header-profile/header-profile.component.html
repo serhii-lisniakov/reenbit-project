@@ -1,8 +1,9 @@
-<div class="profile">
+<div class="profile" [class.active]="isCartFill">
   <a href="#">
     <img src="assets/ic-actions-user.svg" alt="">
   </a>
-  <a routerLink="/cart" class="profile_basket">
+  <a routerLink="/cart" class="profile_cart {{count ? 'profile_cart--fill' : ''}}">
     <img src="assets/ic-ecommerce-basket.svg" alt="">
+    <span>{{count}}</span>
   </a>
 </div>

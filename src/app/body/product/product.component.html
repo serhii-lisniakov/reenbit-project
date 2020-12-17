@@ -1,4 +1,6 @@
 <div class="product_wrapper" *ngIf="product; else noProduct">
+  <div class="product_alert" [class.active]="isNotification">added!</div>
+
   <div class="product_photos">
     <div class="product_photos-top">
       <img [src]="product.imgUrl" alt="">
@@ -10,7 +12,7 @@
   </div>
 
   <div class="product_content">
-    <div class="product_title">{{product.title.charAt(0).toUpperCase() + product.title.slice(1)}}</div>
+    <div class="product_title">{{product.title | titlecase}}</div>
     <div class="product_rating">
       <img *ngFor="let star of productRating" [src]="'assets/' + star + '.svg'" alt="star">
       <span class="openSans">({{product.reviews.length}} customer review{{product.reviews.length > 1 ? 's' : ''}})</span>
@@ -24,7 +26,7 @@
         </div>
         <div>
           <span>Category:</span>
-          <span>{{product.category.charAt(0).toUpperCase() + product.category.slice(1)}}</span>
+          <span>{{product.category | titlecase}}</span>
         </div>
         <div>
           <span>Stock:</span>
@@ -50,7 +52,7 @@
         </div>
         <div>
           <span>Delivery area:</span>
-          <span>{{product.deliveryArea.charAt(0).toUpperCase() + product.deliveryArea.slice(1)}}</span>
+          <span>{{product.deliveryArea | titlecase}}</span>
         </div>
       </div>
     </div>
@@ -62,15 +64,21 @@
       </div>
 
       <div class="product_county">
-        <input type="number" value="1" />
+        <input type="number" [formControl]="productCount" (keydown)="$event.preventDefault()">
+        <div class="product_county-buttons">
+          <button (click)="handleCount(1)">+</button>
+          <button (click)="handleCount(-1)">-</button>
+        </div>
         <select>
-          <option selected>Pcs</option>
-          <option value="">Box</option>
+          <option
+            *ngFor="let option of product.buyProperties.split(', ')"
+            [value]="option"
+          >{{option}}</option>
         </select>
       </div>
 
       <div class="product_button">
-        <button>
+        <button (click)="addProductToCart()">
           <img src="assets/plus.svg" alt="">
           Add to cart</button>
       </div>
