@@ -5,3 +5,43 @@
     <a routerLink="/products">All products</a>
   </div>
 </div>
+<div>
+  <span (click)="toggleModal()">Log in</span>
+</div>
+<div class="auth-modal" [class.active]="!isActive">
+  <div class="auth-modal_wrapper">
+    <div class="auth-modal_header">
+      <span>{{ifRegister ? 'Sign up' : 'Sign in'}}</span>
+      <span class="close" (click)="toggleModal()">+</span>
+    </div>
+    <div class="auth-modal_body">
+      <div class="auth-modal_form" [formGroup]="form">
+        <label *ngIf="ifRegister">
+          Name
+          <input type="text" formControlName="name" />
+        </label>
+        <label>
+          Email
+          <input type="text" formControlName="email" />
+          <span class="valid-label">Incorrect email</span>
+        </label>
+        <label>
+          Password
+          <input type="password" />
+          <span class="valid-label">Min 8 symbols</span>
+        </label>
+        <button type="submit" (click)="auth()">{{ifRegister ? 'Register' : 'Log in'}}</button>
+        <div *ngIf="!ifRegister" class="register">Don't have an account? <span (click)="changeTab()">Register!</span></div>
+        <div *ngIf="ifRegister" class="register">Already have an account? <span (click)="changeTab()">Log in!</span></div>
+      </div>
+
+      <div class="auth-modal_separator">OR</div>
+
+      <div class="auth-modal_social">
+        <div class="social">
+          <app-auth-button></app-auth-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
