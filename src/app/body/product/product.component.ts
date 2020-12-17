@@ -6,6 +6,7 @@ import { BreadCrumbsService } from '../../services/bread-crumbs.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -16,15 +17,16 @@ export class ProductComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public product: Product;
   public productRating: string[];
-  public productCount = 1;
+  public productCount: FormControl = new FormControl(1);
   public proposals: Product[];
   public isNotification = false;
 
-  constructor(private productService: ProductService,
-              private breadCrumbsService: BreadCrumbsService,
-              private cartService: CartService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private productService: ProductService,
+    private breadCrumbsService: BreadCrumbsService,
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getProduct();
@@ -37,7 +39,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.productCount = 1;
+        this.productCount.setValue(1);
         this.getProduct();
         this.breadCrumbsService.title.next(this.product.title);
       }
@@ -66,22 +68,18 @@ export class ProductComponent implements OnInit, OnDestroy {
   public addProductToCart(): void {
     this.isNotification = true;
     const product = JSON.parse(JSON.stringify(this.product));
-    product.count = this.productCount;
+    product.count = this.productCount.value;
     this.cartService.addProductToCart(product);
     setTimeout(() => this.isNotification = false, 800);
   }
 
-  public onCountChange(): boolean {
-    return false;
-  }
-
   public handleCount(operator: number): void {
-    this.productCount += operator;
-    if (this.productCount === 0) {
-      this.productCount = 1;
+    this.productCount.setValue(this.productCount.value + operator);
+    if (this.productCount.value === 0) {
+      this.productCount.setValue(1);
     }
-    if (this.productCount > this.product.stock) {
-      this.productCount = this.product.stock;
+    if (this.productCount.value > this.product.stock) {
+      this.productCount.setValue(this.product.stock);
     }
   }
 

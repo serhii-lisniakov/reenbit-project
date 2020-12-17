@@ -18,6 +18,8 @@ import { cities } from './constant-lists/cities.list';
 })
 export class CartComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
+  private phoneRegex = new RegExp('[+]*[0-9]{5,15}$');
+  private postalRegex = new RegExp('[A-Z0-9]*$');
   public cartInputs: CartInput[] = CartInputs;
   public form: FormGroup;
   public countries: Country[] = countries;
@@ -73,11 +75,11 @@ export class CartComponent implements OnInit, OnDestroy {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required, Validators.pattern('[+]*[0-9]{5,15}$')]),
+      phone: new FormControl('', [Validators.required, Validators.pattern(this.phoneRegex)]),
       address: new FormControl('', [Validators.required]),
       townOrCity: new FormControl('', [Validators.required]),
       country: new FormControl('', [Validators.required]),
-      postal: new FormControl('', [Validators.required, Validators.pattern('[A-Z0-9]*$')]),
+      postal: new FormControl('', [Validators.required, Validators.pattern(this.postalRegex)]),
       notes: new FormControl(''),
       advertisement: new FormControl(false, [Validators.requiredTrue]),
       policy: new FormControl(false, [Validators.requiredTrue])

@@ -1,6 +1,6 @@
 <div class="product-card">
   <div class="product-card_right">
-    <a routerLink="/products/{{product.id}}">
+    <a [routerLink]="'/products/' + product.id">
       <img class="product-card_image" [src]="product.imgUrl" alt="{{product.category}}">
     </a>
     <button class="openSans"><img src="assets/heart-red.svg" alt="">Wishlist</button>
@@ -23,7 +23,7 @@
       <div class="price_calc">{{product.count}} x {{product.price}} USD</div>
       <div class="price green">{{(product.price * product.count).toFixed(2)}} USD</div>
       <div class="count">
-        <input (keydown)="onCountChange()" type="number" [(ngModel)]="product.count"/>
+        <input (keydown)="onCountChange()" type="number" [value]="product.count"/>
         <div class="count_buttons">
           <button (click)="handleCount(1)">+</button>
           <button (click)="handleCount(-1)">-</button>
