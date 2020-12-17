@@ -5,6 +5,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BreadCrumbsService } from '../../services/bread-crumbs.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CartService } from '../../services/cart.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
@@ -15,12 +17,16 @@ export class ProductComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   public product: Product;
   public productRating: string[];
+  public productCount: FormControl = new FormControl(1);
   public proposals: Product[];
+  public isNotification = false;
 
-  constructor(private productService: ProductService,
-              private breadCrumbsService: BreadCrumbsService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private productService: ProductService,
+    private breadCrumbsService: BreadCrumbsService,
+    private cartService: CartService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getProduct();
@@ -28,16 +34,12 @@ export class ProductComponent implements OnInit, OnDestroy {
     this.breadCrumbsService.title.next(this.product.title);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   private subscribeToRouteChanges(): void {
     this.router.events.pipe(
       takeUntil(this.destroy$)
     ).subscribe(event => {
       if (event instanceof NavigationEnd) {
+        this.productCount.setValue(1);
         this.getProduct();
         this.breadCrumbsService.title.next(this.product.title);
       }
@@ -47,11 +49,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   private getProduct(): void {
     const [product, products] = this.route.snapshot.data.data;
     this.product = product;
-    this.productRating = this.setProductsRating(this.product.rating);
+    this.productRating = this.getProductsRating(this.product.rating);
     this.proposals = this.getRandomProposals(products);
   }
 
-  private setProductsRating(rating: number): string[] {
+  private getProductsRating(rating: number): string[] {
     return Array(5).fill('star').map((item, i) => i < rating ? 'star-black' : 'star');
   }
 
@@ -61,5 +63,28 @@ export class ProductComponent implements OnInit, OnDestroy {
       randomProposals.push(products[Math.floor(Math.random() * products.length)]);
     }
     return randomProposals;
+  }
+
+  public addProductToCart(): void {
+    this.isNotification = true;
+    const product = JSON.parse(JSON.stringify(this.product));
+    product.count = this.productCount.value;
+    this.cartService.addProductToCart(product);
+    setTimeout(() => this.isNotification = false, 800);
+  }
+
+  public handleCount(operator: number): void {
+    this.productCount.setValue(this.productCount.value + operator);
+    if (this.productCount.value === 0) {
+      this.productCount.setValue(1);
+    }
+    if (this.productCount.value > this.product.stock) {
+      this.productCount.setValue(this.product.stock);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

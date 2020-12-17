@@ -1,0 +1,112 @@
+<div class="cart_container" [formGroup]="form">
+  <div class="cart_info">
+    <div>
+      <div class="cart_title"><h3>Billing info</h3></div>
+      <div class="cart_subtitle">Please enter your billing info</div>
+      <div class="cart_info-inputs">
+        <label *ngFor="let input of cartInputs">
+          {{input.label}}
+          <input [type]="input.type" [placeholder]="input.placeholder" [formControlName]="input.formControlName">
+          <span class="valid-label">Enter your {{input.formControlName}}</span>
+        </label>
+
+        <label class="city">
+          Town / City
+            <input type="text"
+                   placeholder="Town or city"
+                   formControlName="townOrCity"
+                   [matAutocomplete]="auto">
+            <span class="valid-label">Enter your city</span>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option class="city_option" *ngFor="let city of filteredCities | async" [value]="city.name">
+                {{city.name}}
+              </mat-option>
+            </mat-autocomplete>
+        </label>
+
+        <label class="country">
+          State / Country
+          <select formControlName="country" [class.active]="form.controls['country'].touched">
+            <option class="green" value="" hidden disabled [selected]="true">Choose a state or Country</option>
+            <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
+          </select>
+          <span class="valid-label">Enter tour country</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="cart_info-block">
+      <div class="cart_title"><h3>Additional information</h3></div>
+      <div class="cart_subtitle">Need something else? We will make it for you!</div>
+      <div class="cart_info-inputs textarea">
+        <label>
+          Order notes
+          <textarea formControlName="notes" placeholder="Need a specific delivery day? Sending a gift? Let’s say ..."></textarea>
+        </label>
+      </div>
+    </div>
+
+    <div class="cart_info-block">
+      <div class="cart_title"><h3>Confirmation</h3></div>
+      <div class="cart_subtitle">We are getting to the end. Just few clicks and your order is ready!</div>
+      <div class="cart_info-inputs cart_info-checkbox">
+        <label class="openSans">
+          <input formControlName="advertisement" type="checkbox"/>
+          <span></span>
+          I agree with sending an Marketing and newsletter emails. No spam, promised!
+        </label>
+        <label class="openSans">
+          <input formControlName="policy" type="checkbox"/>
+          <span></span>
+          I agree with our <a href="#">terms and conditions</a> and <a href="#">privacy policy</a>.
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="cart_summary">
+    <div class="cart_title"><h3>Order Summary</h3></div>
+    <div class="cart_subtitle">Price can change depending on shipping method and taxes of your state.</div>
+    <div class="cart_summary-list">
+      <app-product-card
+        *ngFor="let product of orderList.value"
+        [product]="product"
+        [orderList]="orderList"
+      ></app-product-card>
+      <div class="cart_summary-list--empty" *ngIf="!orderList.value.length">
+        You have got no products in your cart! <br/> Choose some <a routerLink="/products">here</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="cart_summary-total">
+        <span>Subtotal</span>
+        <span>{{subtotalPrice}} USD</span>
+      </div>
+      <div class="cart_summary-total">
+        <span>Tax</span>
+        <span>17% {{tax}} USD</span>
+      </div>
+    </div>
+
+    <label class="cart_summary-promo">
+      <input type="text" placeholder="Apply promo code" />
+      <button>Apply now</button>
+    </label>
+
+    <div class="cart_summary-footer">
+      <div class="titles">
+        <span>Total Order</span>
+        <span class="green">Guaranteed delivery day:  June 12, 2020</span>
+      </div>
+      <div class="price green">{{+(subtotalPrice + tax).toFixed(2)}} USD</div>
+    </div>
+  </div>
+</div>
+<div><button class="cart_submit" [disabled]="isDisabled" (click)="sendForm()">Complete order</button></div>
+<div class="cart-alert" [class.disabled]="!isSuccess">
+  <div class="cart-alert_body">
+    Success!
+    <button (click)="closeModal()">Close</button>
+  </div>
+</div>

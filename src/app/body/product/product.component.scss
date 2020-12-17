@@ -93,36 +93,62 @@
     border: 1px solid #D1D1D1;
     border-radius: 12px;
     font-size: 12px;
-    max-width: 120px;
+    max-width: 130px;
     display: flex;
     align-items: center;
-    padding: 10px 16px;
+    justify-content: space-between;
+    padding: 10px 5px 10px 10px;
     position: relative;
     height: 48px;
+    &:hover .product_county-buttons {
+      opacity: 1;
+    }
+    &-buttons {
+      opacity: 0;
+      transition: .3s;
+      margin-right: 10px;
+     button {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       width: 15px;
+       height: 14px;
+       border: none;
+       background: #e2e2e2;
+       transition: .3s;
+       border-radius: 3px;
+       &:hover {
+         opacity: 1;
+       }
+       &:first-child {
+         margin-bottom: 3px;
+       }
+       &:active {
+         background: #767676;
+       }
+     }
+    }
     &:after {
       position: absolute;
       content: '';
       height: 75%;
       width: 1px;
       top: 50%;
-      left: 40%;
+      left: 50%;
       transform: translateY(-50%);
       background: #D1D1D1;
     }
     input, select {
       background: none;
       border: none;
-      width: 50%;
+      font-weight: 600;
     }
     input {
-      max-width: 35%;
-      &::-webkit-inner-spin-button {
+      max-width: 30%;
+      text-align: center;
+      &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
         appearance: none;
       }
-    }
-    select {
-      font-weight: bold;
-      margin-left: 10px;
     }
   }
   &_button {
@@ -200,6 +226,23 @@
     a {
       text-decoration: underline;
     }
+  }
+}
+
+.product_alert {
+  position: fixed;
+  bottom: 10px;
+  right: -300px;
+  background: rgba(70, 118, 10, 0.7);
+  border-radius: 12px;
+  padding: 30px 50px;
+  color: #fff;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: .3s;
+  z-index: 100;
+  &.active {
+    right: 10px;
   }
 }
 
