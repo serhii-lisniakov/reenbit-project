@@ -3,14 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './homepage/home.component';
-import {SharedModule} from '../../shared/shared.module';
-import { GoogleButtonComponent } from './google-button/google-button.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    GoogleButtonComponent
+    HomeComponent
   ],
     imports: [
         CommonModule,
