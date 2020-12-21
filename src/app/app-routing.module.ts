@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AllProductsBreadCrumbs, CartBreadCrumbs, HomeBreadCrumbs, ProductBreadCrumbs } from './header/bread-crumbs/bread-crumbs-list';
+import { CartGuard } from './body/cart/cart.guard';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
   {
     path: 'cart',
     loadChildren: () => import('./body/cart/cart.module').then(m => m.CartModule),
-    data: { crumbs: CartBreadCrumbs }
+    data: { crumbs: CartBreadCrumbs },
+    canActivate: [ CartGuard ]
   },
 ];
 

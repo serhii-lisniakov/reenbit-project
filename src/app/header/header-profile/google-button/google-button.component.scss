@@ -1,0 +1,15 @@
+button {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 100%;
+  img {
+    margin-right: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}

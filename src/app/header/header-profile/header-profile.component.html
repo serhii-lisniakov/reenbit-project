@@ -1,9 +1,57 @@
 <div class="profile" [class.active]="isCartFill">
-  <a href="#">
+  <span class="profile_user-button" (click)="toggleUserWindow()">
     <img src="assets/ic-actions-user.svg" alt="">
-  </a>
-  <a routerLink="/cart" class="profile_cart {{count ? 'profile_cart--fill' : ''}}">
+  </span>
+  <div class="profile_user-overlay" *ngIf="showUserWindow" (click)="toggleUserWindow()"></div>
+  <div class="profile_user" *ngIf="showUserWindow">
+    <div>
+      Hello{{user.name ? ', ' + user.name : '!'}}
+    </div>
+    <div (click)="!user.id ? toggleModal() : logOut()" class="profile_log">{{!user.id ? 'Log in' : 'Log out'}}</div>
+  </div>
+  <a routerLink="/cart" class="profile_cart {{count ? 'profile_cart--fill' : ''}}" (click)="checkAuth()">
     <img src="assets/ic-ecommerce-basket.svg" alt="">
     <span>{{count}}</span>
   </a>
+</div>
+
+<div class="auth-modal" [class.active]="isActive">
+  <div class="auth-modal_wrapper">
+    <div class="auth-modal_header">
+      <span>{{ifRegister ? 'Sign up' : 'Sign in'}}</span>
+      <span class="close" (click)="toggleModal()">+</span>
+    </div>
+    <div class="auth-modal_body">
+      <form class="auth-modal_form" [formGroup]="form">
+        <label *ngIf="ifRegister">
+          Name
+          <input type="text" formControlName="name" />
+        </label>
+        <label>
+          Email
+          <input type="text" formControlName="email" />
+          <span class="valid-label">Incorrect email</span>
+        </label>
+        <label>
+          Password
+          <input type="password" placeholder="password is fake"/>
+          <span class="valid-label">Min 8 symbols</span>
+        </label>
+        <button type="submit" (click)="auth()">{{ifRegister ? 'Register' : 'Log in'}}</button>
+        <div *ngIf="!ifRegister" class="register">Don't have an account? <span (click)="changeTab()">Register!</span></div>
+        <div *ngIf="ifRegister" class="register">Already have an account? <span (click)="changeTab()">Log in!</span></div>
+      </form>
+
+      <div class="auth-modal_separator">OR</div>
+
+      <div class="auth-modal_social">
+        <div class="social">
+          <app-auth-button></app-auth-button>
+        </div>
+        <div class="social">
+          <app-facebook-button></app-facebook-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

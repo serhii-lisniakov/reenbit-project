@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Product } from '../models/product.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,14 @@ import { Product } from '../models/product.model';
 export class CartService {
   public orderList = new BehaviorSubject<Product[]>([]);
   public count = new BehaviorSubject(0);
-  constructor(private db: AngularFireDatabase) { }
+
+  constructor(
+    private db: AngularFireDatabase,
+    private authService: AuthService) { }
 
   public getOrderList(): Promise<any[]> {
     return new Promise((resolve) => {
-      this.db.database.ref(`userSerhii`).once('value').then(snapshot => {
+      this.db.database.ref(`users/${this.authService.user.value.id}`).once('value').then(snapshot => {
         if (!snapshot.val()) {
           this.orderList.next([]);
         } else {
@@ -25,9 +29,11 @@ export class CartService {
   }
 
   public getCount(): void {
-    this.db.database.ref(`userSerhii/count`).once('value').then(snapshot => {
-      this.count.next(snapshot.val());
-    });
+    if (!!JSON.parse(localStorage.getItem('freshnesecomUser'))) {
+      this.db.database.ref(`users/${this.authService.user.value.id}/count`).once('value').then(snapshot => {
+        this.count.next(snapshot.val());
+      });
+    }
   }
 
   private calculateCount(): number {
@@ -35,7 +41,7 @@ export class CartService {
   }
 
   public postOrderList(orderList?: Product[]): void {
-    this.db.database.ref('userSerhii/').set({
+    this.db.database.ref(`users/${this.authService.user.value.id}`).set({
       wishList: [],
       count: this.calculateCount(),
       orderList: orderList || this.orderList.getValue()
@@ -45,7 +51,10 @@ export class CartService {
     }
   }
 
-  public addProductToCart(product: Product): void {
+  public async addProductToCart(product: Product): Promise<void> {
+    if (!this.orderList.value.length) {
+      await this.getOrderList();
+    }
     const orderList = this.orderList.getValue();
     if (orderList.some(item => item.id === product.id)) {
       orderList.forEach(item => item.id === product.id ? item.count += product.count : item);
