@@ -7,7 +7,8 @@
     <div>
       Hello{{user.name ? ', ' + user.name : '!'}}
     </div>
-    <div (click)="!user.id ? toggleModal() : logOut()" class="profile_log">{{!user.id ? 'Log in' : 'Log out'}}</div>
+    <div *ngIf="!user.id" (click)="toggleModal()" class="profile_log">Log in</div>
+    <div *ngIf="user.id" (click)="logOut()" class="profile_log">Log out</div>
   </div>
   <a routerLink="/cart" class="profile_cart {{count ? 'profile_cart--fill' : ''}}" (click)="checkAuth()">
     <img src="assets/ic-ecommerce-basket.svg" alt="">

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   public user = new BehaviorSubject<User>({email: '', id: ''});
   public onProductButtonClick = new BehaviorSubject<boolean>(false);
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase,
+              private router: Router) { }
 
   public async getUsers(): Promise<User[]> {
     let users: User[] = [];
@@ -64,5 +66,11 @@ export class AuthService {
 
   public checkIfUserExist(userEmail: string, users: User[]): boolean {
     return users.some(dbUser => dbUser.email === userEmail);
+  }
+
+  public logOut(): void {
+    localStorage.removeItem('freshnesecomUser');
+    this.user.next({ email: '', id: '' });
+    this.router.navigateByUrl('').then();
   }
 }

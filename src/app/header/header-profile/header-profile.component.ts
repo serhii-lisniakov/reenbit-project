@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-profile',
@@ -24,8 +23,7 @@ export class HeaderProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private authService: AuthService,
-    private router: Router) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.authOnReload();
@@ -106,9 +104,7 @@ export class HeaderProfileComponent implements OnInit, OnDestroy {
   }
 
   public logOut(): void {
-    localStorage.removeItem('freshnesecomUser');
-    this.authService.user.next({ email: '', id: '' });
-    this.router.navigateByUrl('').then();
+    this.authService.logOut();
     this.cartService.count.next(0);
     this.showUserWindow = false;
   }
