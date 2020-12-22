@@ -37,7 +37,7 @@ export class HeaderProfileComponent implements OnInit, OnDestroy {
   private subscribeToOrdersCounter(): void {
     this.cartService.count.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(count => {
+    ).subscribe((count: number) => {
       this.isCartFill = true;
       this.count = count;
       setTimeout(() => this.isCartFill = false, 300);
@@ -47,7 +47,7 @@ export class HeaderProfileComponent implements OnInit, OnDestroy {
   private subscribeToUser(): void {
     this.authService.user.pipe(
       takeUntil(this.destroy$)
-    ).subscribe((user) => {
+    ).subscribe((user: User) => {
       this.user = user;
       this.cartService.getCount();
     });
@@ -56,7 +56,7 @@ export class HeaderProfileComponent implements OnInit, OnDestroy {
   private subscribeToProductButtonClick(): void {
     this.authService.onProductButtonClick.pipe(
       takeUntil(this.destroy$)
-    ).subscribe((ifToggle) => {
+    ).subscribe((ifToggle: boolean) => {
         if (ifToggle) {
           this.toggleModal();
         }
