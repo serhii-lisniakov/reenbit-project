@@ -19,10 +19,10 @@ export class FacebookButtonComponent implements OnInit {
   private initFacebookLogin(): void {
     (window as any).fbAsyncInit = () => {
       FB.init({
-        appId      : '408423610210198',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.1'
+        appId: '408423610210198',
+        cookie: true,
+        xfbml: true,
+        version: 'v3.1'
       });
       FB.AppEvents.logPageView();
     };

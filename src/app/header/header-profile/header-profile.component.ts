@@ -47,7 +47,7 @@ export class HeaderProfileComponent implements OnInit, OnDestroy {
   private subscribeToUser(): void {
     this.authService.user.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(user => {
+    ).subscribe((user) => {
       this.user = user;
       this.cartService.getCount();
     });

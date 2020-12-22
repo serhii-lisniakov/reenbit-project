@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  public user = new BehaviorSubject<User>({email: '', id: ''});
+  public user = new BehaviorSubject<User>({} as User);
   public onProductButtonClick = new BehaviorSubject<boolean>(false);
   constructor(private db: AngularFireDatabase,
               private router: Router) { }
@@ -70,7 +70,7 @@ export class AuthService {
 
   public logOut(): void {
     localStorage.removeItem('freshnesecomUser');
-    this.user.next({ email: '', id: '' });
+    this.user.next({} as User);
     this.router.navigateByUrl('').then();
   }
 }
