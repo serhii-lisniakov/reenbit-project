@@ -3,7 +3,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
+    padding: 10px 0;
+    .logo {
+      img {
+        position: relative;
+        top: 8px;
+        left: 17px;
+      }
+    }
   }
 }
 app-search {

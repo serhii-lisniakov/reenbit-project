@@ -15,7 +15,7 @@
   <form novalidate [formGroup]="form">
     <div class="filter">
       <div class="filter_title">Categories</div>
-      <ul class="filter_items">
+      <ul class="filter_items filter_items--categories">
         <li *ngFor="let category of categories">
           <label class="filter_category">
             <input type="radio" [value]="category" name="categories" formControlName="categories" />
@@ -52,7 +52,7 @@
       </ul>
     </div>
 
-    <div class="filter" formGroupName="price">
+    <div class="filter filter--price" formGroupName="price">
       <div class="filter_title">Price</div>
       <div class="filter-price">
         <div class="filter-price_range">

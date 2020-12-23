@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin-top: 18px;
   }
   &_title {
     font-weight: 600;
@@ -137,6 +138,7 @@
   }
   &_summary {
     margin-left: 32px;
+    margin-top: 15px;
     flex-grow: 1;
     min-width: 468px;
     border: 1px solid #D1D1D1;
