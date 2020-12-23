@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-product',
@@ -26,7 +27,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private breadCrumbsService: BreadCrumbsService,
     private cartService: CartService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getProduct();
@@ -66,10 +68,14 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   public addProductToCart(): void {
+    if (!JSON.parse(localStorage.getItem('freshnesecomUser'))) {
+      this.authService.onProductButtonClick.next(true);
+      return;
+    }
     this.isNotification = true;
     const product = JSON.parse(JSON.stringify(this.product));
     product.count = this.productCount.value;
-    this.cartService.addProductToCart(product);
+    this.cartService.addProductToCart(product).then();
     setTimeout(() => this.isNotification = false, 800);
   }
 

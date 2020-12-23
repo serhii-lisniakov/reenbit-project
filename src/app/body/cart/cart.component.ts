@@ -10,6 +10,7 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
 import { City } from '../../models/city.model';
 import { cities } from './constant-lists/cities.list';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-basket',
@@ -31,7 +32,9 @@ export class CartComponent implements OnInit, OnDestroy {
   public isDisabled = true;
   public isSuccess = false;
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -105,6 +108,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public closeModal(): void {
     this.isSuccess = false;
+    this.router.navigateByUrl('products').then();
   }
 
   ngOnDestroy(): void {
