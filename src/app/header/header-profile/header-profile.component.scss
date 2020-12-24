@@ -70,6 +70,13 @@
     bottom: -8px;
     left: -8px;
   }
+  &_wishlist {
+    display: block;
+    margin-top: 10px;
+    img {
+      width: 16px;
+    }
+  }
 }
 
 .auth-modal {

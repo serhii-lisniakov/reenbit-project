@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AllProductsBreadCrumbs, CartBreadCrumbs, HomeBreadCrumbs, ProductBreadCrumbs } from './header/bread-crumbs/bread-crumbs-list';
-import { CartGuard } from './body/cart/cart.guard';
+import {
+  AllProductsBreadCrumbs,
+  CartBreadCrumbs,
+  HomeBreadCrumbs,
+  ProductBreadCrumbs,
+  WishlistBreadCrumbs
+} from './header/bread-crumbs/bread-crumbs-list';
+import { CartGuard } from './guards/cart.guard';
 
 const routes: Routes = [
   {
@@ -29,6 +35,11 @@ const routes: Routes = [
     data: { crumbs: CartBreadCrumbs },
     canActivate: [ CartGuard ]
   },
+  {
+    path: 'wishlist',
+    loadChildren: () => import('./body/wishlist/wishlist.module').then(m => m.WishlistModule),
+    data: { crumbs: WishlistBreadCrumbs }
+  }
 ];
 
 @NgModule({

@@ -7,21 +7,24 @@ import { FiltersComponent } from './filters/filters.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import {SharedModule} from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    AllProductsComponent,
-    FiltersComponent,
-    ProductCardComponent
-  ],
-  imports: [
-    CommonModule,
-    AllProductsRoutingModule,
-    SharedModule,
-    NgxPaginationModule,
-    NgxSliderModule,
-  ]
+    declarations: [
+        AllProductsComponent,
+        FiltersComponent,
+        ProductCardComponent
+    ],
+    exports: [
+        ProductCardComponent
+    ],
+    imports: [
+        CommonModule,
+        AllProductsRoutingModule,
+        SharedModule,
+        NgxPaginationModule,
+        NgxSliderModule,
+    ]
 })
 export class AllProductsModule { }

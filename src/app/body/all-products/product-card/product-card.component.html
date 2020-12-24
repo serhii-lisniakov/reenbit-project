@@ -38,10 +38,10 @@
       <div class="product-card_details">
         <a routerLink="/products/{{product.id}}">Product Detail</a>
       </div>
-      <div class="product-card_wishlist">
-        <button>
-          <img src="assets/heart.svg" alt="">
-          Add to wish list</button>
+      <div class="product-card_wishlist" *ngIf="authService.user.value.id && !wishlist">
+        <button (click)="addProductToWishlist()">
+          <img src="assets/{{!isProductInWishlist ? 'heart' : 'heart-full'}}.svg" alt="">
+          {{!isProductInWishlist ? 'Add to wish list' : 'Remove'}}</button>
       </div>
     </div>
   </div>

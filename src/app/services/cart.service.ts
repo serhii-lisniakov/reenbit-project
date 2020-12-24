@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Product } from '../models/product.model';
 import { AuthService } from './auth.service';
+import {WishlistService} from './wishlist.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,7 @@ export class CartService {
   }
 
   public postOrderList(orderList?: Product[]): void {
-    this.db.database.ref(`users/${this.authService.user.value.id}`).set({
-      wishList: [],
+    this.db.database.ref(`users/${this.authService.user.value.id}`).update({
       count: this.calculateCount(),
       orderList: orderList || this.orderList.getValue()
     }).then();

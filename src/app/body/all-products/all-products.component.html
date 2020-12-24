@@ -1,19 +1,19 @@
 <div class="page-title">
   <h2>All Products</h2>
   <div class="products-counter">
-    <span>{{(products)?.length}} </span> Products
+    <span>{{products?.length}} </span> Products
   </div>
 </div>
 
 <div class="all-products_container">
   <app-filters></app-filters>
 
-  <div class="all-products_items" *ngIf="products.length; else noProducts">
+  <div class="all-products_items" *ngIf="products?.length; else noProducts">
     <div *ngFor="let product of products | paginate: {
       id: 'products_pagination',
       itemsPerPage: productsToShow,
       currentPage: page,
-      totalItems: products.length
+      totalItems: products?.length
     }">
       <app-product-card [product]="product"></app-product-card>
     </div>
@@ -34,12 +34,12 @@
     autoHide="true"
   ></pagination-controls>
 
-  <div class="all-products_showmore" *ngIf="products.length > 5">
+  <div class="all-products_showmore" *ngIf="products?.length > 5">
     <button (click)="showMoreProducts()">Show more products </button>
   </div>
 
   <div class="products-counter">
-    <span>{{(products)?.length}} </span> Products
+    <span>{{products?.length}} </span> Products
   </div>
 </div>
 
