@@ -38,7 +38,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     await this.wishlistService.getWishlist().then();
     this.subscribeToRouteChanges();
     this.breadCrumbsService.title.next(this.product.title);
-    this.isProductInWishlist = this.checkIfProductInWishlist();
+    this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
   }
 
   private subscribeToRouteChanges(): void {
@@ -48,7 +48,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         this.productCount.setValue(1);
         this.getProduct();
-        this.isProductInWishlist = this.checkIfProductInWishlist();
+        this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
         this.breadCrumbsService.title.next(this.product.title);
       }
     });
@@ -98,10 +98,6 @@ export class ProductComponent implements OnInit, OnDestroy {
   public addToWishlist(): void {
     this.isProductInWishlist = !this.isProductInWishlist;
     this.wishlistService.toggleProductToWishlist(this.product);
-  }
-
-  public checkIfProductInWishlist(): boolean {
-    return this.wishlistService.wishList.value.some((item: Product) => item.id === this.product.id);
   }
 
   ngOnDestroy(): void {

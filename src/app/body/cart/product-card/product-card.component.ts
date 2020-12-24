@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { CartService } from '../../../services/cart.service';
 import { BehaviorSubject } from 'rxjs';
+import { WishlistService } from '../../../services/wishlist.service';
 
 @Component({
   selector: 'app-product-card',
@@ -12,10 +13,16 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   @Input() orderList: BehaviorSubject<Product[]>;
   public productRating: string[];
-  constructor(private cartService: CartService) { }
+  public isProductInWishlist: boolean;
 
-  ngOnInit(): void {
+  constructor(
+    private cartService: CartService,
+    private wishlistService: WishlistService) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.wishlistService.getWishlist().then();
     this.productRating = this.setProductsRating(this.product.rating);
+    this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
   }
 
   private setProductsRating(rating: number): string[] {
@@ -40,5 +47,10 @@ export class ProductCardComponent implements OnInit {
     }
     this.orderList.next(this.orderList.value);
     this.cartService.postOrderList(this.orderList.value);
+  }
+
+  public addProductToWishlist(): void {
+    this.isProductInWishlist = !this.isProductInWishlist;
+    this.wishlistService.toggleProductToWishlist(this.product);
   }
 }

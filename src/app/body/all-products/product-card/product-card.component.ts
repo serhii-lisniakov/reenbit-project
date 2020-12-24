@@ -20,7 +20,7 @@ export class ProductCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.productRating = this.setProductsRating(this.product.rating);
-    this.isProductInWishlist = this.checkIfProductInWishlist();
+    this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
   }
 
   private setProductsRating(rating: number): string[] {
@@ -30,9 +30,5 @@ export class ProductCardComponent implements OnInit {
   public addProductToWishlist(): void {
     this.isProductInWishlist = !this.isProductInWishlist;
     this.wishlistService.toggleProductToWishlist(this.product);
-  }
-
-  public checkIfProductInWishlist(): boolean {
-    return this.wishlistService.wishList.value.some((item: Product) => item.id === this.product.id);
   }
 }

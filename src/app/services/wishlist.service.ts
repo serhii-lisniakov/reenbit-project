@@ -45,4 +45,8 @@ export class WishlistService {
       wishlist
     }).then();
   }
+
+  public checkIfProductInWishlist(product: Product): boolean {
+    return this.wishList.value.some((item: Product) => item.id === product.id);
+  }
 }
