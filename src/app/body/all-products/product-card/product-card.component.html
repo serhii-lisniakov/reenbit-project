@@ -31,17 +31,23 @@
     </div>
 
     <div class="product-card_pricing">
-      <div class="product-card_price">{{product.price}} USD</div>
-      <div class="product-card_lastprice">{{product.previousPrice}}</div>
-      <div class="product-card_shipping">Free Shipping</div>
-      <div class="product-card_delivery openSans">Delivery in {{product.deliveryTime}} day</div>
-      <div class="product-card_details">
-        <a routerLink="/products/{{product.id}}">Product Detail</a>
+      <div class="product-card_pricing-block">
+        <div class="product-card_price">{{product.price}} USD</div>
+        <div class="product-card_lastprice">{{product.previousPrice}}</div>
       </div>
-      <div class="product-card_wishlist" *ngIf="userId && !wishlist">
-        <button (click)="addProductToWishlist()">
-          <img src="assets/{{!isProductInWishlist ? 'heart' : 'heart-full'}}.svg" alt="">
-          {{!isProductInWishlist ? 'Add to wish list' : 'Remove'}}</button>
+      <div class="product-card_pricing-block">
+        <div class="product-card_shipping">Free Shipping</div>
+        <div class="product-card_delivery openSans">Delivery in {{product.deliveryTime}} day</div>
+      </div>
+      <div class="product-card_pricing-buttons">
+        <div class="product-card_details">
+          <a routerLink="/products/{{product.id}}">Product Detail</a>
+        </div>
+        <div class="product-card_wishlist" *ngIf="userId && !wishlist">
+          <button (click)="addProductToWishlist()">
+            <img src="assets/{{!isProductInWishlist ? 'heart' : 'heart-full'}}.svg" alt="">
+            {{!isProductInWishlist ? 'Add to wish list' : 'Remove'}}</button>
+        </div>
       </div>
     </div>
   </div>

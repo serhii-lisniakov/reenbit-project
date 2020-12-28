@@ -50,4 +50,9 @@ $freshnesecom-theme: mat-light-theme((
   font-size: 32px;
   padding: 10px 0;
   display: flex;
+  @media screen and (max-width: 450px) {
+    font-size: 24px;
+    flex-direction: column;
+    text-align: center;
+  }
 }

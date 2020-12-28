@@ -131,3 +131,129 @@
     }
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .product-card {
+    height: 253px;
+    &_content-wrapper {
+      padding: 20px;
+    }
+    &_content {
+      margin-right: 20px;
+    }
+    &_image {
+      min-width: 253px;
+      max-width: 253px;
+    }
+    &_info div {
+      margin-top: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-card {
+    height: fit-content;
+    max-height: fit-content;
+    &_content-wrapper {
+      flex-direction: column;
+      padding: 0;
+    }
+    &_image {
+      display: flex;
+      align-items: center;
+      min-width: 35%;
+      max-width: 35%;
+      img {
+        height: 55%;
+        border-radius: 12px;
+      }
+    }
+    &_content {
+      padding: 15px 15px 10px;
+      margin-right: 0;
+    }
+    &_shipping {
+      margin-top: 0;
+    }
+    &_pricing {
+      display: flex;
+      flex-wrap: wrap;
+      &-block {
+        width: 50%;
+        padding: 0 15px;
+      }
+      &-buttons {
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+      }
+      .product-card_details {
+        left: 0;
+        width: 50%;
+        order: 2;
+        a {
+          width: 100%;
+          margin-top: 0;
+          border-radius: 0 0 12px 0;
+        }
+      }
+      .product-card_wishlist {
+        left: 0;
+        width: 50%;
+        button {
+          width: 100%;
+          margin-top: 0;
+          height: 100%;
+          border-radius: 12px 0 0 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 555px) {
+  .product-card {
+    flex-direction: column;
+    &_image {
+      max-width: 100%;
+      max-height: 300px;
+    }
+    .product-card_wishlist button {
+      border-bottom-left-radius: 12px;
+    }
+    &_info {
+      div {
+        margin-top: 7px;
+        & > span:first-child {
+          margin-right: 32px;
+        }
+        span:last-child {
+          width: 100%;
+          text-align: right;
+        }
+      }
+    }
+    &_shipping, &_delivery {
+      text-align: right;
+    }
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .product-card_pricing-buttons {
+    flex-direction: column;
+    .product-card_details {
+      width: 100%;
+      a {
+        border-radius: 0 0 12px 12px;
+      }
+    }
+    .product-card_wishlist {
+      width: 100%;
+      button {
+        border-radius: 12px 12px 0 0;
+      }
+    }
+  }
+}

@@ -2,6 +2,10 @@
   &_container {
     margin-right: 35px;
     width: 265px;
+    @media screen and (max-width: 1140px) {
+      margin-right: 20px;
+      width: 250px;
+    }
   }
 }
 
@@ -261,5 +265,129 @@
   letter-spacing: 1px;
   &:active {
     background: #efefef;
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .filters {
+    &_container {
+      margin-right: 0;
+      width: 100%;
+    }
+  }
+  .sort {
+    margin-bottom: 0;
+  }
+  .mobile {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 1px solid rgba(169, 169, 169, 0.3);
+    border-top: 1px solid rgba(169, 169, 169, 0.3);
+    padding: 10px 0;
+    &_button {
+      padding: 0 20px;
+      transition: .3s;
+      display: flex;
+      align-items: center;
+      border: 1px solid #D1D1D1;
+      border-radius: 12px;
+      background: #F9F9F9;
+      cursor: pointer;
+      margin-right: 20px;
+      &:hover {
+        background: #dcdcdc;
+      }
+    }
+  }
+  .formMobileOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 101;
+    background: rgba(21, 21, 21, 0.5);
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+  .formMobile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 95vh;
+    z-index: 102;
+    background: #fff;
+    overflow-y: scroll;
+    padding: 30px 30px 50px;
+    border-radius: 12px;
+    &::-webkit-scrollbar {
+      width: 7px;
+      background: rgba(169, 169, 169, 0.5);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #46760A;
+      border-radius: 3px;
+    }
+  }
+  .filter_items {
+    overflow-y: visible;
+    max-height: fit-content;
+    list-style: none;
+  }
+  .filter-price_inputs {
+    label {
+      width: calc(50% - 15px);
+    }
+    input {
+      max-width: 100%;
+    }
+  }
+  .closeMobile {
+    position: absolute;
+    top: calc(97.5vh - 15px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    z-index: 102;
+    border: none;
+    padding: 10px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background: #46760A;
+    cursor: pointer;
+    transition: .3s;
+    color: #fff;
+    font-weight: bold;
+    &:hover {
+      background: #345708;
+    }
+    &:active {
+      background: #579c04;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .formMobile, .closeMobile {
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .mobile {
+    justify-content: center;
+  }
+  .sort {
+    padding: 0 10px;
+    span {
+      display: none;
+    }
+  }
+  .formMobile {
+    padding: 15px 15px 50px;
   }
 }
