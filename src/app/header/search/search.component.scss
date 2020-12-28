@@ -10,6 +10,9 @@
   flex-grow: 2;
   position: relative;
   left: -25px;
+  @media screen and (max-width: 1023px) {
+    left: 0;
+  }
   select, input {
     border: none;
     background: none;

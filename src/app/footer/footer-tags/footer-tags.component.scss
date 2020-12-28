@@ -21,3 +21,13 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .footer-tags {
+    &_title {
+      text-align: center;
+    }
+    &_items {
+      justify-content: center;
+    }
+  }
+}

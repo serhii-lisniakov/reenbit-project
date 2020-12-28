@@ -5,3 +5,13 @@
 .copyright {
   font-size: 14px;
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    margin-top: 0;
+    padding: 20px 0;
+  }
+  .copyright {
+    text-align: center;
+  }
+}

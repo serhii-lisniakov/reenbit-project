@@ -1,18 +1,21 @@
 <div class="header">
-  <app-header-top></app-header-top>
+  <app-header-top *ngIf="!isSmallScreen"></app-header-top>
 
   <div class="header_content">
+    <div class="header_search" *ngIf="isSmallScreen" (click)="toggleSearch()">
+      <img src="assets/ic-actions-search.svg" alt="search">
+    </div>
     <div class="logo">
       <a routerLink="/home">
         <img src="assets/Freshnesecom.svg" alt="logo">
       </a>
     </div>
 
-    <app-search></app-search>
+    <app-search *ngIf="showSearch"></app-search>
     <app-header-profile></app-header-profile>
 
   </div>
-
-  <app-nav></app-nav>
+  <app-header-mobile *ngIf="isSmallScreen"></app-header-mobile>
+  <app-nav *ngIf="!isSmallScreen"></app-nav>
   <app-bread-crumbs></app-bread-crumbs>
 </div>

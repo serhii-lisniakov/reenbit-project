@@ -5,6 +5,9 @@
   background: #F9F9F9;
   padding: 15px 63px;
   margin-top: 9px;
+  @media screen and (max-width: 1140px) {
+    padding: 15px 20px;
+  }
   a {
     font-weight: 500;
     position: relative;
@@ -19,6 +22,27 @@
       height: 3px;
       border-top: 1.5px solid #6A983C;
       border-left: 1.5px solid #6A983C;
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .nav {
+    flex-direction: column;
+    margin-top: 0;
+    padding: 0;
+    a {
+      text-align: left;
+      padding: 10px 20px;
+      width: 100%;
+      &:after {
+        right: 10px;
+        transform: translateY(-50%) rotate(135deg);
+      }
+      transition: .3s;
+      &:hover {
+        background: #D1D1D1;
+      }
     }
   }
 }

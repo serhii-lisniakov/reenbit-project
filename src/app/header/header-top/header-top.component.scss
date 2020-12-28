@@ -3,11 +3,32 @@
   display: flex;
   justify-content: space-between;
   padding: 17px 0;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+    &_block {
+      flex-direction: column;
+    }
+  }
   a {
     color: #6A983C;
     margin-right: 35px;
     &:last-child {
       margin-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .header-top {
+    flex-direction: column;
+    &_block {
+      flex-direction: column;
+    }
+    a {
+      display: block;
+      margin: 3px 0;
+      text-align: center;
+      padding: 3px 0;
     }
   }
 }

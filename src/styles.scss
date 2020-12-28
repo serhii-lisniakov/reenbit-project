@@ -40,6 +40,9 @@ $freshnesecom-theme: mat-light-theme((
   max-width: 1260px;
   padding: 0 45px;
   margin: 0 auto;
+  @media screen and (max-width: 1140px) {
+    padding: 0 15px;
+  }
 }
 
 .page-title {

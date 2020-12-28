@@ -2,6 +2,9 @@
   position: relative;
   left: 19px;
   top: 2px;
+  @media screen and (max-width: 1140px) {
+    left: 0;
+  }
   &_user {
     font-size: 18px;
     position: absolute;
@@ -214,6 +217,17 @@
       &:first-child {
         margin-bottom: 20px;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .profile {
+    img {
+      width: 22px;
+    }
+    &_cart {
+      margin-left: 20px;
     }
   }
 }
