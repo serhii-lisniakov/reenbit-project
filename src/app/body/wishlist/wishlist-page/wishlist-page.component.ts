@@ -16,7 +16,6 @@ export class WishlistPageComponent implements OnInit, OnDestroy {
   constructor(private wishlistService: WishlistService) { }
 
   ngOnInit(): void {
-    this.wishlistService.getWishlist().then();
     this.subscribeToWishlist();
   }
 

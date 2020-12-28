@@ -13,14 +13,22 @@ export class ProductCardComponent implements OnInit {
   @Input() wishlist: boolean;
   public productRating: string[];
   public isProductInWishlist: boolean;
+  public userId: string;
 
   constructor(
     private wishlistService: WishlistService,
-    public authService: AuthService) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.productRating = this.setProductsRating(this.product.rating);
-    this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
+    this.checkIfProductInWishlist();
+    this.userId = this.authService.user.value.id;
+  }
+
+  private checkIfProductInWishlist(): void {
+    this.wishlistService.checkIfProductInWishlist(this.product).then((ifExist: boolean) => {
+      this.isProductInWishlist = ifExist;
+    });
   }
 
   private setProductsRating(rating: number): string[] {

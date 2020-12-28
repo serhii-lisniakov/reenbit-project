@@ -1,12 +1,12 @@
 <div class="page-title">
   <h2>Wishlist</h2>
   <div class="products-counter">
-    <span>{{(wishlist)?.length}} </span> Products
+    <span>{{wishlist?.length}} </span> Products
   </div>
 </div>
 
 <div class="wishlist_container">
-  <div class="wishlist_items" *ngIf="wishlist.length; else noItems">
+  <div class="wishlist_items" *ngIf="wishlist?.length; else noItems">
     <div class="wishlist_item" *ngFor="let wish of wishlist">
       <app-product-card [product]="wish" [wishlist]="true"></app-product-card>
       <button (click)="removeWish(wish)" class="wishlist_delete">

@@ -33,12 +33,11 @@ export class ProductComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private wishlistService: WishlistService) { }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     this.getProduct();
-    await this.wishlistService.getWishlist().then();
     this.subscribeToRouteChanges();
     this.breadCrumbsService.title.next(this.product.title);
-    this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
+    this.checkIfProductInWishlist();
   }
 
   private subscribeToRouteChanges(): void {
@@ -48,7 +47,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         this.productCount.setValue(1);
         this.getProduct();
-        this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
+        this.checkIfProductInWishlist();
         this.breadCrumbsService.title.next(this.product.title);
       }
     });
@@ -98,6 +97,12 @@ export class ProductComponent implements OnInit, OnDestroy {
   public addToWishlist(): void {
     this.isProductInWishlist = !this.isProductInWishlist;
     this.wishlistService.toggleProductToWishlist(this.product);
+  }
+
+  private checkIfProductInWishlist(): void {
+    this.wishlistService.checkIfProductInWishlist(this.product).then((ifExist: boolean) => {
+      this.isProductInWishlist = ifExist;
+    });
   }
 
   ngOnDestroy(): void {

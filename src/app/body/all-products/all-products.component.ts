@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
-import { WishlistService } from '../../services/wishlist.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -17,11 +16,9 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   public productsToShow = 5;
   public productsCount: number;
 
-  constructor(private productService: ProductService,
-              private wishlistService: WishlistService) { }
+  constructor(private productService: ProductService) { }
 
-  async ngOnInit(): Promise<void> {
-    await this.wishlistService.getWishlist().then();
+  ngOnInit(): void {
     this.subscribeToProducts();
     this.productsCount = this.products?.length || 0;
   }

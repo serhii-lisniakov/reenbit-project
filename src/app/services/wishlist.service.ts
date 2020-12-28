@@ -16,7 +16,7 @@ export class WishlistService {
     private cartService: CartService,
     private authService: AuthService) { }
 
-  public getWishlist(): Promise<any[]> {
+  public getWishlist(): Promise<Product[]> {
     return new Promise((resolve) => {
       this.db.database.ref(`users/${this.authService.user.value.id}/wishlist`).once('value').then(snapshot => {
         if (!snapshot.val()) {
@@ -46,7 +46,10 @@ export class WishlistService {
     }).then();
   }
 
-  public checkIfProductInWishlist(product: Product): boolean {
+  public async checkIfProductInWishlist(product: Product): Promise<boolean> {
+    if (!this.wishList.value.length) {
+      await this.getWishlist().then();
+    }
     return this.wishList.value.some((item: Product) => item.id === product.id);
   }
 }

@@ -19,10 +19,9 @@ export class ProductCardComponent implements OnInit {
     private cartService: CartService,
     private wishlistService: WishlistService) { }
 
-  async ngOnInit(): Promise<void> {
-    await this.wishlistService.getWishlist().then();
+  ngOnInit(): void {
     this.productRating = this.setProductsRating(this.product.rating);
-    this.isProductInWishlist = this.wishlistService.checkIfProductInWishlist(this.product);
+    this.checkIfProductInWishlist();
   }
 
   private setProductsRating(rating: number): string[] {
@@ -52,5 +51,11 @@ export class ProductCardComponent implements OnInit {
   public addProductToWishlist(): void {
     this.isProductInWishlist = !this.isProductInWishlist;
     this.wishlistService.toggleProductToWishlist(this.product);
+  }
+
+  private checkIfProductInWishlist(): void {
+    this.wishlistService.checkIfProductInWishlist(this.product).then((ifExist: boolean) => {
+      this.isProductInWishlist = ifExist;
+    });
   }
 }
