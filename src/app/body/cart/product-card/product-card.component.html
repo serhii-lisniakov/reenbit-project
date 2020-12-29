@@ -3,11 +3,13 @@
     <a [routerLink]="'/products/' + product.id">
       <img class="product-card_image" [src]="product.imgUrl" alt="{{product.category}}">
     </a>
-    <button class="openSans" (click)="addProductToWishlist()">
-      <img src="assets/{{isProductInWishlist ? 'heart-red-full' : 'heart-red'}}.svg" alt="">
-      Wishlist
-    </button>
-    <button (click)="deleteProductFromCart(product)" class="openSans"><img src="assets/delete.svg" alt="">Remove</button>
+    <div class="product-card_options">
+      <button class="openSans" (click)="addProductToWishlist()">
+        <img src="assets/{{isProductInWishlist ? 'heart-red-full' : 'heart-red'}}.svg" alt="">
+        Wishlist
+      </button>
+      <button (click)="deleteProductFromCart(product)" class="openSans"><img src="assets/delete.svg" alt="">Remove</button>
+    </div>
   </div>
   <div class="product-card_content">
     <div class="product-card_title">{{product.title}}</div>
