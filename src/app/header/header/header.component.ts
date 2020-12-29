@@ -9,6 +9,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 export class HeaderComponent implements OnInit {
   public isSmallScreen: boolean;
   public showSearch = true;
+  public isActive = false;
 
   constructor(private breakpointObserver: BreakpointObserver) { }
 
@@ -19,7 +20,13 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  public toggleMenu(): void {
+    this.isActive = !this.isActive;
+    this.showSearch = false;
+  }
+
   public toggleSearch(): void {
     this.showSearch = !this.showSearch;
+    this.isActive = false;
   }
 }

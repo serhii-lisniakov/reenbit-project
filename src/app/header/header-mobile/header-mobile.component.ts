@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header-mobile',
@@ -6,12 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header-mobile.component.scss']
 })
 export class HeaderMobileComponent implements OnInit {
-  public isActive = false;
+  @Input() isActive: boolean;
 
   constructor() { }
   ngOnInit(): void { }
 
-  public toggleMenu(): void {
-    this.isActive = !this.isActive;
-  }
 }

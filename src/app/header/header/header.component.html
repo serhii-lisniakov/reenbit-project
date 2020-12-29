@@ -2,6 +2,11 @@
   <app-header-top *ngIf="!isSmallScreen"></app-header-top>
 
   <div class="header_content">
+    <div class="header_mobile-button" *ngIf="isSmallScreen" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div class="header_search" *ngIf="isSmallScreen" (click)="toggleSearch()">
       <img src="assets/ic-actions-search.svg" alt="search">
     </div>
@@ -15,7 +20,7 @@
     <app-header-profile></app-header-profile>
 
   </div>
-  <app-header-mobile *ngIf="isSmallScreen"></app-header-mobile>
+  <app-header-mobile *ngIf="isSmallScreen" [isActive]="isActive"></app-header-mobile>
   <app-nav *ngIf="!isSmallScreen"></app-nav>
   <app-bread-crumbs></app-bread-crumbs>
 </div>
