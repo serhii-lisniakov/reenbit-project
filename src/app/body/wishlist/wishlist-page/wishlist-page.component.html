@@ -9,13 +9,8 @@
   <div class="wishlist_items" *ngIf="wishlist?.length; else noItems">
     <div class="wishlist_item" *ngFor="let wish of wishlist">
       <app-product-card [product]="wish" [wishlist]="true"></app-product-card>
-      <button (click)="removeWish(wish)" class="wishlist_delete">
-        <img src="assets/delete.svg" alt="delete">
-        Remove
-      </button>
     </div>
   </div>
-
 
   <ng-template #noItems>
     <p>Oops! No wishes yet.</p>

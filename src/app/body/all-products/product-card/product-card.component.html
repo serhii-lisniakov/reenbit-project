@@ -43,10 +43,14 @@
         <div class="product-card_details">
           <a routerLink="/products/{{product.id}}">Product Detail</a>
         </div>
-        <div class="product-card_wishlist" *ngIf="userId && !wishlist">
-          <button (click)="addProductToWishlist()">
+        <div class="product-card_wishlist" *ngIf="userId">
+          <button (click)="addProductToWishlist()" *ngIf="!wishlist">
             <img src="assets/{{!isProductInWishlist ? 'heart' : 'heart-full'}}.svg" alt="">
             {{!isProductInWishlist ? 'Add to wish list' : 'Remove'}}</button>
+          <button (click)="removeWish(product)" class="wishlist_delete" *ngIf="wishlist">
+            <img src="assets/delete.svg" alt="delete">
+            Remove
+          </button>
         </div>
       </div>
     </div>

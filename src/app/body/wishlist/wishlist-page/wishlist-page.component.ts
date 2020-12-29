@@ -24,10 +24,6 @@ export class WishlistPageComponent implements OnInit, OnDestroy {
       .subscribe((wishlist: Product[]) => this.wishlist = wishlist);
   }
 
-  public removeWish(wish: Product): void {
-    this.wishlistService.toggleProductToWishlist(wish);
-  }
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

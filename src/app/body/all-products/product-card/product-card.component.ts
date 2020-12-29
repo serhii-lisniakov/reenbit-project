@@ -39,4 +39,9 @@ export class ProductCardComponent implements OnInit {
     this.isProductInWishlist = !this.isProductInWishlist;
     this.wishlistService.toggleProductToWishlist(this.product);
   }
+
+  public removeWish(wish: Product): void {
+    this.wishlistService.toggleProductToWishlist(wish);
+  }
+
 }
