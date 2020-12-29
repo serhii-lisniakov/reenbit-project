@@ -1,13 +1,15 @@
 <div class="product_wrapper" *ngIf="product; else noProduct">
   <div class="product_alert" [class.active]="isNotification">added!</div>
 
-  <div class="product_photos">
-    <div class="product_photos-top">
-      <img [src]="product.imgUrl" alt="">
-    </div>
-    <div class="product_photos-bottom">
-      <div class="product_photos-bottom_item"><img [src]="product.imgUrl" alt=""></div>
-      <div class="product_photos-bottom_item"><img [src]="product.imgUrl" alt=""></div>
+  <div class="product_photos-wrapper">
+    <div class="product_photos">
+      <div class="product_photos-top">
+        <img [src]="product.imgUrl" alt="">
+      </div>
+      <div class="product_photos-bottom">
+        <div class="product_photos-bottom_item"><img [src]="product.imgUrl" alt=""></div>
+        <div class="product_photos-bottom_item"><img [src]="product.imgUrl" alt=""></div>
+      </div>
     </div>
   </div>
 
@@ -139,9 +141,11 @@
     <a routerLink="/products">More products</a>
   </div>
 
-  <div class="proposals_items">
-    <div *ngFor="let proposal of proposals" class="proposals_item">
-      <app-proposal-card [proposal]="proposal"></app-proposal-card>
+  <div class="proposals_scrollable">
+    <div class="proposals_items">
+      <div *ngFor="let proposal of proposals" class="proposals_item">
+        <app-proposal-card [proposal]="proposal"></app-proposal-card>
+      </div>
     </div>
   </div>
 </div>
