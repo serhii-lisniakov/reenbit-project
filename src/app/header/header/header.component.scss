@@ -17,3 +17,66 @@ app-search {
   flex-grow: 1;
   max-width: 500px;
 }
+
+@media screen and (max-width: 1023px) {
+  .header {
+    &_content {
+      position: fixed;
+      width: 100%;
+      height: 58px;
+      top: 0;
+      left: 0;
+      background: #FFF;
+      z-index: 101;
+      flex-wrap: wrap;
+      padding: 10px 15px;
+      border-bottom: 1px solid rgba(169, 169, 169, 0.17);
+      box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.4);
+    }
+    &_search {
+      margin-left: 40px;
+      padding: 3px;
+      cursor: pointer;
+      img {
+        width: 24px;
+        margin-top: 2px;
+      }
+    }
+    &_mobile-button {
+      position: absolute;
+      background: #fff;
+      padding: 17px 15px;
+      width: 50px;
+      height: 50px;
+      top: 2px;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      span {
+        height: 2px;
+        background: #000;
+      }
+    }
+    .logo {
+      img {
+        top: 2px;
+        left: 0;
+        width: 100%;
+      }
+    }
+  }
+  app-search {
+    max-width: 100%;
+    width: 100%;
+    order: 2;
+    margin-top: 15px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .header .logo {
+    width: 41%;
+  }
+}

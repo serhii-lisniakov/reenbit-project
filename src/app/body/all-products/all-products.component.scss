@@ -13,6 +13,9 @@
   &_items {
     padding-top: 120px;
     flex-grow: 1;
+    @media screen and (max-width: 1120px) {
+      padding-top: 0;
+    }
   }
   &_item {
     padding: 10px;
@@ -118,5 +121,32 @@
     max-height: 18px;
     min-width: 32px;
     margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .all-products {
+    &_pagination {
+      flex-direction: column;
+      margin-top: 0;
+      &-controls {
+        display: none;
+      }
+      .products-counter {
+        justify-content: center;
+        margin: 10px auto 0;
+      }
+    }
+    &_showmore {
+      order: -1;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .products-counter {
+    margin: 0 auto;
   }
 }

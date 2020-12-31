@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { GoogleButtonComponent } from './header-profile/google-button/google-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FacebookButtonComponent } from './header-profile/facebook-button/facebook-button.component';
+import { HeaderMobileComponent } from './header-mobile/header-mobile.component';
 
 
 
@@ -22,7 +23,8 @@ import { FacebookButtonComponent } from './header-profile/facebook-button/facebo
     SearchComponent,
     HeaderProfileComponent,
     GoogleButtonComponent,
-    FacebookButtonComponent
+    FacebookButtonComponent,
+    HeaderMobileComponent
   ],
   imports: [
     CommonModule,

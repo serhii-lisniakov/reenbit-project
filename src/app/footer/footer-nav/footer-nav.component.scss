@@ -15,3 +15,29 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .footer-nav {
+    flex-wrap: wrap;
+    &_block {
+      width: 50%;
+      text-align: center;
+      margin-top: 20px;
+      &:nth-child(2), &:nth-child(4) {
+        order: 1;
+      }
+    }
+  }
+}
+@media screen and (max-width: 475px) {
+  .footer-nav {
+    &_block {
+      width: 100%
+    }
+    &_block-links {
+      a {
+        margin-top: 7px;
+      }
+    }
+  }
+}

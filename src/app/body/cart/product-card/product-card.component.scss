@@ -120,3 +120,29 @@
     }
   }
 }
+
+@media screen and (max-width: 475px) {
+  .product-card {
+    flex-direction: column;
+    border-color: #A9A9A9;
+    &_right {
+      max-width: 100%;
+      display: flex;
+      a {
+        width: 100px;
+        margin-right: 10px;
+      }
+    }
+    &_options {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    &_price {
+      flex-wrap: wrap;
+      .count {
+        margin-left: auto;
+      }
+    }
+  }
+}

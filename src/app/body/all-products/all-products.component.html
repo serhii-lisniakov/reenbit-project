@@ -5,8 +5,10 @@
   </div>
 </div>
 
+<app-filters [mobileFilters]="mobileFilters" *ngIf="mobileFilters"></app-filters>
+
 <div class="all-products_container">
-  <app-filters></app-filters>
+  <app-filters *ngIf="!mobileFilters"></app-filters>
 
   <div class="all-products_items" *ngIf="products?.length; else noProducts">
     <div *ngFor="let product of products | paginate: {

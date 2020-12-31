@@ -3,6 +3,7 @@ import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-all-products',
@@ -15,12 +16,16 @@ export class AllProductsComponent implements OnInit, OnDestroy {
   public page: number;
   public productsToShow = 5;
   public productsCount: number;
+  public mobileFilters = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit(): void {
     this.subscribeToProducts();
     this.productsCount = this.products?.length || 0;
+    this.subscribeToBreakpoint();
   }
 
   private subscribeToProducts(): void {
@@ -28,8 +33,16 @@ export class AllProductsComponent implements OnInit, OnDestroy {
       .subscribe((products: Product[]) => this.products = products);
   }
 
-  showMoreProducts(): void {
+  public showMoreProducts(): void {
     this.productsToShow += 5;
+  }
+
+  private subscribeToBreakpoint(): void {
+    this.breakpointObserver.observe('(max-width: 1120px)')
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((state: BreakpointState) => {
+        this.mobileFilters = state.matches;
+    });
   }
 
   ngOnDestroy(): void {

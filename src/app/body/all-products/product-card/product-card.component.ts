@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { WishlistService } from '../../../services/wishlist.service';
 import { AuthService } from '../../../services/auth.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-product-card',
@@ -11,6 +12,7 @@ import { AuthService } from '../../../services/auth.service';
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   @Input() wishlist: boolean;
+  @Output() wishDelete = new EventEmitter<Product>();
   public productRating: string[];
   public isProductInWishlist: boolean;
   public userId: string;
@@ -39,4 +41,9 @@ export class ProductCardComponent implements OnInit {
     this.isProductInWishlist = !this.isProductInWishlist;
     this.wishlistService.toggleProductToWishlist(this.product);
   }
+
+  public removeWish(wish: Product): void {
+    this.wishDelete.emit(wish);
+  }
+
 }

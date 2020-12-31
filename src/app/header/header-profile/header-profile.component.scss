@@ -2,6 +2,9 @@
   position: relative;
   left: 19px;
   top: 2px;
+  @media screen and (max-width: 1140px) {
+    left: 0;
+  }
   &_user {
     font-size: 18px;
     position: absolute;
@@ -213,6 +216,54 @@
       text-align: center;
       &:first-child {
         margin-bottom: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .profile {
+    img {
+      width: 22px;
+    }
+    &_cart {
+      margin-left: 20px;
+    }
+  }
+  .auth-modal_wrapper {
+    width: 90%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    img {
+      width: 22px;
+    }
+    &_cart {
+      margin-left: 20px;
+    }
+  }
+  .auth-modal {
+    &_body {
+      flex-direction: column;
+      form {
+        width: 100%;
+      }
+    }
+    &_separator {
+      justify-content: center;
+      margin: 20px 0;
+      &:after, &:before {
+        width: calc(50% - 15px);
+        height: 1px;
+        top: 50%;
+        left: 0;
+      }
+      &:before {
+        left: auto;
+        right: 0;
       }
     }
   }

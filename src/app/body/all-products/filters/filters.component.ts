@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../models/product.model';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -23,6 +23,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
   public sliderOptions: Options;
   public sortValue = 'Select';
   public sortOptions: DropDownOption[] = sortDropDownOptions;
+  @Input() mobileFilters: boolean;
+  public showMobileFilters = false;
 
   constructor(private productService: ProductService) { }
 
@@ -140,5 +142,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   private getMaxPrice(products: Product[]): number {
     return products.reduce((acc, product) => acc > product.price ? acc : product.price, 1);
+  }
+
+  public toggleMobileFilters(): void {
+    this.showMobileFilters = !this.showMobileFilters;
   }
 }
