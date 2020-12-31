@@ -1,35 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../../../models/product.model';
 import { WishlistService } from '../../../services/wishlist.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist-page',
   templateUrl: './wishlist-page.component.html',
   styleUrls: ['./wishlist-page.component.scss']
 })
-export class WishlistPageComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject();
+export class WishlistPageComponent implements OnInit {
   public wishlist: Product[];
 
-  constructor(private wishlistService: WishlistService) { }
+  constructor(
+    private wishlistService: WishlistService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.subscribeToWishlist();
-  }
-
-  private subscribeToWishlist(): void {
-    this.wishlistService.wishList.pipe(takeUntil(this.destroy$))
-      .subscribe((wishlist: Product[]) => this.wishlist = wishlist);
+    this.wishlist = this.route.snapshot.data.data;
   }
 
   public removeWish(wish: Product): void {
     this.wishlistService.toggleProductToWishlist(wish);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.wishlist = this.wishlist.filter((item: Product) => item.id !== wish.id);
   }
 }
