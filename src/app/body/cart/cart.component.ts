@@ -10,7 +10,7 @@ import { map, startWith, takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
 import { City } from '../../models/city.model';
 import { cities } from './constant-lists/cities.list';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-basket',
@@ -20,7 +20,7 @@ import {Router} from '@angular/router';
 export class CartComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   private phoneRegex = new RegExp('[+]*[0-9]{5,15}$');
-  private postalRegex = new RegExp('[A-Z0-9]*$');
+  private postalRegex = new RegExp('^[0-9]+$');
   public cartInputs: CartInput[] = CartInputs;
   public form: FormGroup;
   public countries: Country[] = countries;
@@ -31,6 +31,8 @@ export class CartComponent implements OnInit, OnDestroy {
   public tax: number;
   public isDisabled = true;
   public isSuccess = false;
+  public changeCountryConfirm = false;
+  public selectedCountry: string;
 
   constructor(
     private cartService: CartService,
@@ -42,6 +44,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.subscribeToLocalOrderList();
     this.subscribeToForm();
     this.setFilteredCities();
+    this.subscribeToCountryChange();
   }
 
   private subscribeToCartServiceOrderList(): void {
@@ -81,8 +84,8 @@ export class CartComponent implements OnInit, OnDestroy {
       phone: new FormControl('', [Validators.required, Validators.pattern(this.phoneRegex)]),
       address: new FormControl('', [Validators.required]),
       townOrCity: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required]),
-      postal: new FormControl('', [Validators.required, Validators.pattern(this.postalRegex)]),
+      country: new FormControl('Ukraine', [Validators.required]),
+      postal: new FormControl('', [Validators.required, Validators.pattern(this.postalRegex), Validators.minLength(5)]),
       notes: new FormControl(''),
       advertisement: new FormControl(false, [Validators.requiredTrue]),
       policy: new FormControl(false, [Validators.requiredTrue])
@@ -109,6 +112,25 @@ export class CartComponent implements OnInit, OnDestroy {
   public closeModal(): void {
     this.isSuccess = false;
     this.router.navigateByUrl('products').then();
+  }
+
+  private subscribeToCountryChange(): void {
+    this.selectedCountry = this.form.controls.country.value;
+    this.form.controls.country.valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((value: string) => {
+        this.isSuccess = true;
+        this.changeCountryConfirm = true;
+      });
+  }
+
+  private confirmDialog(value: boolean): void {
+    this.changeCountryConfirm = value;
+    if (value) {
+      this.selectedCountry = this.form.controls.country.value;
+    } else {
+      this.form.controls.country.setValue(this.selectedCountry);
+    }
+    this.isSuccess = false;
   }
 
   ngOnDestroy(): void {

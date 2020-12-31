@@ -7,7 +7,9 @@
         <label *ngFor="let input of cartInputs">
           {{input.label}}
           <input [type]="input.type" [placeholder]="input.placeholder" [formControlName]="input.formControlName">
-          <span class="valid-label">Enter your {{input.formControlName}}</span>
+          <span class="valid-label">
+            {{form.controls[input.formControlName].value.length ? input.validationWarning : 'Enter your ' + input.formControlName}}
+          </span>
         </label>
 
         <label class="city">
@@ -26,7 +28,7 @@
 
         <label class="country">
           State / Country
-          <select formControlName="country" [class.active]="form.controls['country'].touched">
+          <select formControlName="country">
             <option class="green" value="" hidden disabled [selected]="true">Choose a state or Country</option>
             <option *ngFor="let country of countries" [value]="country.name">{{country.name}}</option>
           </select>
@@ -105,8 +107,14 @@
 </div>
 <div><button class="cart_submit" [disabled]="isDisabled" (click)="sendForm()">Complete order</button></div>
 <div class="cart-alert" [class.disabled]="!isSuccess">
-  <div class="cart-alert_body">
+  <div class="cart-alert_body" *ngIf="!changeCountryConfirm">
     Success!
     <button (click)="closeModal()">Close</button>
+  </div>
+
+  <div class="cart-alert_body" *ngIf="changeCountryConfirm">
+    Are you sure you want to change your country?
+    <button (click)="confirmDialog(true)">Yes</button>
+    <button (click)="confirmDialog(false)">Cancel</button>
   </div>
 </div>

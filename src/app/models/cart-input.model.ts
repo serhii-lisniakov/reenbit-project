@@ -3,4 +3,5 @@ export interface CartInput {
   type: string;
   placeholder: string;
   formControlName: string;
+  validationWarning?: string;
 }
