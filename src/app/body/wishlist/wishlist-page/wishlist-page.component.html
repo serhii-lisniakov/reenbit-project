@@ -8,7 +8,7 @@
 <div class="wishlist_container">
   <div class="wishlist_items" *ngIf="wishlist?.length; else noItems">
     <div class="wishlist_item" *ngFor="let wish of wishlist">
-      <app-product-card [product]="wish" [wishlist]="true"></app-product-card>
+      <app-product-card [product]="wish" [wishlist]="true" (wishDelete)="removeWish(wish)"></app-product-card>
     </div>
   </div>
 
