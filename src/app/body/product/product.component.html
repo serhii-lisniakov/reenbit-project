@@ -84,10 +84,10 @@
       </div>
     </div>
 
-    <div class="product_wishlist">
-      <button>
-        <img src="assets/heart.svg" alt="">
-        Add to my wish list</button>
+    <div class="product_wishlist" *ngIf="authService.user.value.id">
+      <button (click)="addToWishlist()">
+        <img src="assets/{{!isProductInWishlist ? 'heart' : 'heart-full'}}.svg" alt="">
+        {{!isProductInWishlist ? 'Add to' : 'Remove from'}} my wish list</button>
     </div>
 
     <div class="product-tabs">

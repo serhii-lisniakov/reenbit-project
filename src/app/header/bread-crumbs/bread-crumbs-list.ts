@@ -3,17 +3,21 @@ export const HomeBreadCrumbs = [
 ];
 
 export const AllProductsBreadCrumbs = [
-  { path: '/home', label: 'Homepage' },
+  ...HomeBreadCrumbs,
   { path: '/products', label: 'All products' }
 ];
 
 export const ProductBreadCrumbs = [
-  { path: '/home', label: 'Homepage' },
-  { path: '/products', label: 'All products' },
+  ...AllProductsBreadCrumbs,
   { path: '/products/:id', label: 'ProductComponent', title: 'product title' }
 ];
 
 export const CartBreadCrumbs = [
-  { path: '/home', label: 'Homepage' },
+  ...HomeBreadCrumbs,
   { path: '/cart', label: 'Checkout' }
 ];
+
+export const WishlistBreadCrumbs = [
+  ...HomeBreadCrumbs,
+  { path: '/wishlist', label: 'Wishlist' }
+]

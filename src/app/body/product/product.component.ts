@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-product',
@@ -21,6 +22,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   public productCount: FormControl = new FormControl(1);
   public proposals: Product[];
   public isNotification = false;
+  public isProductInWishlist: boolean;
 
   constructor(
     private productService: ProductService,
@@ -28,12 +30,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     private cartService: CartService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private wishlistService: WishlistService) { }
 
   ngOnInit(): void {
     this.getProduct();
     this.subscribeToRouteChanges();
     this.breadCrumbsService.title.next(this.product.title);
+    this.checkIfProductInWishlist();
   }
 
   private subscribeToRouteChanges(): void {
@@ -43,6 +47,7 @@ export class ProductComponent implements OnInit, OnDestroy {
       if (event instanceof NavigationEnd) {
         this.productCount.setValue(1);
         this.getProduct();
+        this.checkIfProductInWishlist();
         this.breadCrumbsService.title.next(this.product.title);
       }
     });
@@ -87,6 +92,17 @@ export class ProductComponent implements OnInit, OnDestroy {
     if (this.productCount.value > this.product.stock) {
       this.productCount.setValue(this.product.stock);
     }
+  }
+
+  public addToWishlist(): void {
+    this.isProductInWishlist = !this.isProductInWishlist;
+    this.wishlistService.toggleProductToWishlist(this.product);
+  }
+
+  private checkIfProductInWishlist(): void {
+    this.wishlistService.checkIfProductInWishlist(this.product).then((ifExist: boolean) => {
+      this.isProductInWishlist = ifExist;
+    });
   }
 
   ngOnDestroy(): void {

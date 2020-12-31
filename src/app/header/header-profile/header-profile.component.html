@@ -7,6 +7,12 @@
     <div>
       Hello{{user.name ? ', ' + user.name : '!'}}
     </div>
+    <div *ngIf="user.id">
+      <a routerLink="/wishlist" class="profile_wishlist" (click)="showUserWindow = false">
+        <img src="assets/heart-red.svg" alt="wishlist">
+        Wishlist
+      </a>
+    </div>
     <div *ngIf="!user.id" (click)="toggleModal()" class="profile_log">Log in</div>
     <div *ngIf="user.id" (click)="logOut()" class="profile_log">Log out</div>
   </div>
