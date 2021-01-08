@@ -33,7 +33,8 @@ const routes: Routes = [
     path: 'cart',
     loadChildren: () => import('./body/cart/cart.module').then(m => m.CartModule),
     data: { crumbs: CartBreadCrumbs },
-    canActivate: [ CartGuard ]
+    canActivate: [ CartGuard ],
+    canDeactivate: [ CartGuard ]
   },
   {
     path: 'wishlist',

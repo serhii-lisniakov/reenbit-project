@@ -13,6 +13,7 @@ import { cities } from './constant-lists/cities.list';
 import { ConfirmModalService } from '../../services/confirm-modal.service';
 import { SuccessModalService } from '../../services/success-modal.service';
 import { ConfirmModalData } from '../../models/confirm-modal-data.model';
+import { PermissionsService } from '../../services/permissions.service';
 
 @Component({
   selector: 'app-basket',
@@ -40,7 +41,8 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     private modalSuccess: SuccessModalService,
-    private modalConfirm: ConfirmModalService) { }
+    private modalConfirm: ConfirmModalService,
+    private permissions: PermissionsService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -65,6 +67,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private subscribeToForm(): void {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.permissions.isCartFormDirty = true;
       this.isDisabled = !(this.form.valid && this.orderList.value.length > 0);
     });
   }
