@@ -106,15 +106,6 @@
   </div>
 </div>
 <div><button class="cart_submit" [disabled]="isDisabled" (click)="sendForm()">Complete order</button></div>
-<div class="cart-alert" [class.disabled]="!isSuccess">
-  <div class="cart-alert_body" *ngIf="!changeCountryConfirm">
-    Success!
-    <button (click)="closeModal()">Close</button>
-  </div>
 
-  <div class="cart-alert_body" *ngIf="changeCountryConfirm">
-    Are you sure you want to change your country?
-    <button (click)="confirmDialog(true)">Yes</button>
-    <button (click)="confirmDialog(false)">Cancel</button>
-  </div>
-</div>
+<app-success-modal></app-success-modal>
+<app-confirm-modal (confirm)="confirmChanges($event)"></app-confirm-modal>
