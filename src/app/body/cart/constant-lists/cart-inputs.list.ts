@@ -17,13 +17,15 @@ export const CartInputs: CartInput[] = [
     label: 'Email address',
     type: 'text',
     placeholder: 'Email address',
-    formControlName: 'email'
+    formControlName: 'email',
+    validationWarning: 'Exp: email@example.com'
   },
   {
     label: 'Phone number',
     type: 'tel',
     placeholder: 'Phone number',
-    formControlName: 'phone'
+    formControlName: 'phone',
+    validationWarning: 'Exp: (+38) 0912345678'
   },
   {
     label: 'Address',
@@ -35,6 +37,7 @@ export const CartInputs: CartInput[] = [
     label: 'ZIP / Postal code',
     type: 'text',
     placeholder: 'Postal code or ZIP',
-    formControlName: 'postal'
+    formControlName: 'postal',
+    validationWarning: 'Min 5 digits'
   }
 ];

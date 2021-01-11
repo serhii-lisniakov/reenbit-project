@@ -1,0 +1,9 @@
+<div class="modal" [class.disabled]="!visible">
+  <div class="modal_body confirm">
+    {{title.title}}
+    <div>
+      <button (click)="onConfirm(true)">Yes</button>
+      <button (click)="onConfirm(false)">Cancel</button>
+    </div>
+  </div>
+</div>

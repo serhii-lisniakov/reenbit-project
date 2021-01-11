@@ -6,11 +6,14 @@ import { Country } from '../../models/country.model';
 import { countries } from './constant-lists/countries.list';
 import { Product } from '../../models/product.model';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, startWith, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, startWith, takeUntil } from 'rxjs/operators';
 import { CartService } from '../../services/cart.service';
 import { City } from '../../models/city.model';
 import { cities } from './constant-lists/cities.list';
-import {Router} from '@angular/router';
+import { ConfirmModalService } from '../../services/confirm-modal.service';
+import { SuccessModalService } from '../../services/success-modal.service';
+import { ConfirmModalData } from '../../models/confirm-modal-data.model';
+import { PermissionsService } from '../../services/permissions.service';
 
 @Component({
   selector: 'app-basket',
@@ -20,7 +23,7 @@ import {Router} from '@angular/router';
 export class CartComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject();
   private phoneRegex = new RegExp('[+]*[0-9]{5,15}$');
-  private postalRegex = new RegExp('[A-Z0-9]*$');
+  private postalRegex = new RegExp('^[0-9]+$');
   public cartInputs: CartInput[] = CartInputs;
   public form: FormGroup;
   public countries: Country[] = countries;
@@ -30,11 +33,16 @@ export class CartComponent implements OnInit, OnDestroy {
   public subtotalPrice: number;
   public tax: number;
   public isDisabled = true;
-  public isSuccess = false;
+  public defaultValues = {
+    country: '',
+    address: ''
+  };
 
   constructor(
     private cartService: CartService,
-    private router: Router) { }
+    private modalSuccess: SuccessModalService,
+    private modalConfirm: ConfirmModalService,
+    private permissions: PermissionsService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -42,6 +50,8 @@ export class CartComponent implements OnInit, OnDestroy {
     this.subscribeToLocalOrderList();
     this.subscribeToForm();
     this.setFilteredCities();
+    this.subscribeToCountryChange();
+    this.subscribeToAddressChange();
   }
 
   private subscribeToCartServiceOrderList(): void {
@@ -57,6 +67,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private subscribeToForm(): void {
     this.form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      this.permissions.isCartFormDirty = true;
       this.isDisabled = !(this.form.valid && this.orderList.value.length > 0);
     });
   }
@@ -79,10 +90,10 @@ export class CartComponent implements OnInit, OnDestroy {
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', [Validators.required, Validators.pattern(this.phoneRegex)]),
-      address: new FormControl('', [Validators.required]),
+      address: new FormControl('Boikivska St. 1', [Validators.required]),
       townOrCity: new FormControl('', [Validators.required]),
-      country: new FormControl('', [Validators.required]),
-      postal: new FormControl('', [Validators.required, Validators.pattern(this.postalRegex)]),
+      country: new FormControl('Ukraine', [Validators.required]),
+      postal: new FormControl('', [Validators.required, Validators.pattern(this.postalRegex), Validators.minLength(5)]),
       notes: new FormControl(''),
       advertisement: new FormControl(false, [Validators.requiredTrue]),
       policy: new FormControl(false, [Validators.requiredTrue])
@@ -97,8 +108,7 @@ export class CartComponent implements OnInit, OnDestroy {
   public sendForm(): void {
     if (this.form.valid && this.orderList.value?.length) {
       this.form.value.orderList = this.orderList.value;
-      this.isSuccess = true;
-      this.initForm();
+      this.modalSuccess.visible.next(true);
       this.cartService.orderList.next([]);
       this.cartService.postOrderList([]);
     } else {
@@ -106,9 +116,26 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
-  public closeModal(): void {
-    this.isSuccess = false;
-    this.router.navigateByUrl('products').then();
+  private subscribeToCountryChange(): void {
+    this.defaultValues.country = this.form.controls.country.value;
+    this.form.controls.country.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.modalConfirm.showDialog('country'));
+  }
+
+  private subscribeToAddressChange(): void {
+    this.defaultValues.address = this.form.controls.address.value;
+    this.form.controls.address.valueChanges
+      .pipe(takeUntil(this.destroy$), debounceTime(500))
+      .subscribe(() => this.modalConfirm.showDialog('address'));
+  }
+
+  public confirmChanges(response: ConfirmModalData): void {
+    if (response.userResponse) {
+      this.defaultValues[response.prop] = this.form.get(response.prop).value;
+    } else {
+      this.form.get(response.prop).setValue(this.defaultValues[response.prop], { emitEvent: false });
+    }
   }
 
   ngOnDestroy(): void {

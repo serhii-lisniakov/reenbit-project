@@ -1,6 +1,8 @@
 <div class="proposal">
   <div class="proposal_image">
-    <img src="{{proposal.imgUrl}}" alt="">
+    <a routerLink="/products/{{proposal.id}}">
+      <img src="{{proposal.imgUrl}}" alt="">
+    </a>
   </div>
   <div class="proposal_title">{{proposal.title.charAt(0).toUpperCase() + proposal.title.slice(1)}}</div>
   <div class="proposal_description">{{proposal.description.small}}</div>
